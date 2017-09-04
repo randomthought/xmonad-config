@@ -29,13 +29,11 @@ For source code, or to contribute, see the
 
 ## Requirements
 
-* xmonad 0.9.1 or 0.9.2
-* xmonad-contrib 0.9.1 or 0.9.2
-* [xmobar 0.11.1 or 0.13](http://projects.haskell.org/xmobar/)
-* [stalonetray 0.8.0](http://stalonetray.sourceforge.net/)
-* [dmenu 4.0](http://tools.suckless.org/dmenu/)
-* [yeganesh 2.2](http://dmwit.com/yeganesh/)
-* [scrot 0.8](http://freshmeat.net/projects/scrot/)
+* xmonad
+* xmonad-contrib
+* [xmobar](http://projects.haskell.org/xmobar/)
+* [stalonetray](http://stalonetray.sourceforge.net/)
+* [rofi](https://davedavenport.github.io/rofi/)
 
 ### Installing requirements on [Arch Linux](http://www.archlinux.org/)
 
