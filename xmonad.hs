@@ -97,7 +97,7 @@ myManageHook = composeAll
 --     spiral (6/7)) |||
 --     noBorders (fullscreenFull Full)
 
-myLayout = avoidStructs (spacing 5 (
+myLayout = avoidStruts (spacing 5 (
     ThreeColMid 1 (3/100) (1/2) |||
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
