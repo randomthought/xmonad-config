@@ -1,5 +1,5 @@
 # xmonad-config
-xmonad-config is my [xmonad](http://xmonad.org/) configuration was inspired by [Vic Fryzel](https://github.com/vicfryzel/xmonad-config)
+xmonad-config is my [xmonad](http://xmonad.org/) configuration was inspired by [Vic Fryzel](https://github.com/vicfryzel/xmonad-config), [gilbertw1](https://gist.github.com/gilbertw1/c33e79eb76fcb5a47411da881c621639) and [Ethan Schoonover](https://github.com/altercation/dotfiles-tilingwm)
 
 
 ## Introduction
@@ -22,7 +22,8 @@ This project is also recommended for advanced xmonad users, who may just not
 want to reinvent the wheel.  All source provided with this project is well
 documented and simple to customize.
 
-![Screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot.png)
+![First screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot1.png)
+![Second screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot2.png)
 For source code, or to contribute, see the the main project at
 [xmonad-config project page](http://github.com/vicfryzel/xmonad-config).
 
