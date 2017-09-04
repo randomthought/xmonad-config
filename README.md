@@ -22,7 +22,7 @@ This project is also recommended for advanced xmonad users, who may just not
 want to reinvent the wheel.  All source provided with this project is well
 documented and simple to customize.
 
-![Screenshot of xmonad-config](https://raw.github.com/vicfryzel/xmonad-config/master/screenshot.png)
+![Screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot.png)
 For source code, or to contribute, see the
 [xmonad-config project page](http://github.com/vicfryzel/xmonad-config).
 
