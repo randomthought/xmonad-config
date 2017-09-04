@@ -96,27 +96,59 @@ myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEv
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
-myLayout = addTopBar (avoidStruts $ gaps [(U,25), (R,25), (L,25), (D,25)] $spacing 10 (
-    ThreeColMid 1 (3/100) (1/2) |||
-    emptyBSP |||
-    Tall 1 (3/100) (1/2) |||
-    Mirror (Tall 1 (3/100) (1/2)) |||
-    tabbed shrinkText myTabTheme |||
-    Full )) |||
-    noBorders (fullscreenFull Full)
+-- myLayout = addTopBar (avoidStruts $ gaps [(U,25), (R,25), (L,25), (D,25)] $ spacing 10 (
+--     ThreeColMid 1 (3/100) (1/2) |||
+--     emptyBSP |||
+--     Tall 1 (3/100) (1/2) |||
+--     Mirror (Tall 1 (3/100) (1/2)) |||
+--     tabbed shrinkText myTabTheme |||
+--     Full )) |||
+--     noBorders (fullscreenFull Full)
 
--- threeColumnLayout    = ThreeColMid 1 (3/100) (1/2)
--- binarySpacePartition = emptyBSP
--- tallLayout           = Tall 1 (3/100) (1/2)
--- mirrorLayout         = Mirror (Tall 1 (3/100) (1/2))
--- fullWindow           = Full
+-- myLayout = addTopBar (avoidStruts $ gaps [(U,25), (R,25), (L,25), (D,25)] $ spacing 10 (
+--     ThreeColMid 1 (3/100) (1/2) |||
+--     emptyBSP |||
+--     Tall 1 (3/100) (1/2) |||
+--     Mirror (Tall 1 (3/100) (1/2)) |||
+--     tabbed shrinkText myTabTheme |||
+--     Full )) |||
+--     noBorders (fullscreenFull Full)
 
--- myLayout = spacing 5 (threeColumnLayout     |||
---             binarySpacePartition  |||
---             tallLayout            |||
---             mirrorLayout          |||
---             fullWindow)           |||
---             noBorders (fullscreenFull Full)
+myGaps = gaps [(U,25), (R,25), (L,25), (D,25)]
+
+threeColumnLayout    = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ spacing 10 (ThreeColMid 1 (3/100) (1/2))
+binarySpacePartition = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ spacing 10 (emptyBSP)
+tallLayout           = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ spacing 10 (Tall 1 (3/100) (1/2))
+mirrorLayout         = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ spacing 10 (Mirror (Tall 1 (3/100) (1/2)))
+tab                  = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ tabbed shrinkText myTabTheme
+fullWindow           = avoidStruts
+                       $ addTopBar
+                       $ myGaps
+                       $ spacing 10 Full
+fullScreen           = noBorders (fullscreenFull Full)
+
+myLayout =  threeColumnLayout     |||
+            binarySpacePartition  |||
+            tallLayout            |||
+            mirrorLayout          |||
+            tab                   |||
+            fullWindow            |||
+            fullScreen
 
 ------------------------------------------------------------------------
 -- Colors and borders

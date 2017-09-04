@@ -1,5 +1,5 @@
 # xmonad-config
-xmonad-config is the [xmonad](http://xmonad.org/) configuration was inspired by [Vic Fryzel](https://github.com/vicfryzel/xmonad-config)
+xmonad-config is my [xmonad](http://xmonad.org/) configuration was inspired by [Vic Fryzel](https://github.com/vicfryzel/xmonad-config)
 
 
 ## Introduction
@@ -23,7 +23,7 @@ want to reinvent the wheel.  All source provided with this project is well
 documented and simple to customize.
 
 ![Screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot.png)
-For source code, or to contribute, see the
+For source code, or to contribute, see the the main project at
 [xmonad-config project page](http://github.com/vicfryzel/xmonad-config).
 
 
