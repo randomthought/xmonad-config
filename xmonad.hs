@@ -9,6 +9,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
+import qualified XMonad.Hooks.EwmhDesktops as E
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
@@ -21,7 +22,7 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 
-------------------------------------------------------------------------
+----------------------------mupdf--------------------------------------------
 -- Terminal
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -65,7 +66,8 @@ myWorkspaces = ["1:term","2:web","3:code","4:vm","5:media"] ++ map show [6..9]
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "Google-chrome"  --> doShift "2:web"
+    [
+      className =? "Google-chrome"  --> doShift "2:web"
     , resource  =? "desktop_window" --> doIgnore
     , className =? "Galculator"     --> doFloat
     , className =? "Steam"          --> doFloat
@@ -75,7 +77,10 @@ myManageHook = composeAll
     , className =? "VirtualBox"     --> doShift "4:vm"
     , className =? "Xchat"          --> doShift "5:media"
     , className =? "stalonetray"    --> doIgnore
-    , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
+    , isFullscreen                  --> (doF W.focusDown <+> doFullFloat)
+    ] <+> fullscreenManageHook
+
+myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEventHook
 
 
 ------------------------------------------------------------------------
@@ -87,15 +92,6 @@ myManageHook = composeAll
 --
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
---
--- myLayout = avoidStruts (
---     ThreeColMid 1 (3/100) (1/2) |||
---     Tall 1 (3/100) (1/2) |||
---     Mirror (Tall 1 (3/100) (1/2)) |||
---     tabbed shrinkText tabConfig |||
---     Full |||
---     spiral (6/7)) |||
---     noBorders (fullscreenFull Full)
 
 myLayout = avoidStruts (spacing 5 (
     ThreeColMid 1 (3/100) (1/2) |||
@@ -365,6 +361,7 @@ main = do
           , ppSep = "   "
       }
       , manageHook = manageDocks <+> myManageHook
+      , handleEventHook    = myEventHook
       , startupHook = setWMName "LG3D"
   }
 
