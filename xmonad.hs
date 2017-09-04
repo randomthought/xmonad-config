@@ -8,13 +8,15 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Layout.Fullscreen
 import qualified XMonad.Hooks.EwmhDesktops as E
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
+import XMonad.Layout.NoFrillsDecoration
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -93,13 +95,14 @@ myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEv
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
-myLayout = avoidStruts (spacing 5 (
+myLayout = addTopBar (avoidStruts $ spacing 2 (
     ThreeColMid 1 (3/100) (1/2) |||
+    emptyBSP |||
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig |||
     Full |||
-    spiral (6/7))) |||
+    spiral (6/7)))|||
     noBorders (fullscreenFull Full)
 
 
@@ -107,8 +110,8 @@ myLayout = avoidStruts (spacing 5 (
 -- Colors and borders
 -- Currently based on the ir_black theme.
 --
-myNormalBorderColor  = "#7c7c7c"
-myFocusedBorderColor = "#ffb6b0"
+-- myNormalBorderColor  = "#7c7c7c"
+-- myFocusedBorderColor = "#ffb6b0"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
@@ -336,6 +339,77 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- > logHook = dynamicLogDzen
 --
+------------------------------------------------------------------------}}}
+-- Theme                                                                {{{
+---------------------------------------------------------------------------
+
+myNormalBorderColor     = "#000000"
+myFocusedBorderColor    = active
+
+base03  = "#002b36"
+base02  = "#073642"
+base01  = "#586e75"
+base00  = "#657b83"
+base0   = "#839496"
+base1   = "#93a1a1"
+base2   = "#eee8d5"
+base3   = "#fdf6e3"
+yellow  = "#b58900"
+orange  = "#cb4b16"
+red     = "#dc322f"
+magenta = "#d33682"
+violet  = "#6c71c4"
+blue    = "#268bd2"
+cyan    = "#2aa198"
+green       = "#859900"
+
+-- sizes
+gap         = 10
+topbar      = 10
+border      = 0
+prompt      = 20
+status      = 20
+
+active      = blue
+activeWarn  = red
+inactive    = base02
+focusColor  = blue
+unfocusColor = base02
+
+-- myFont      = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
+-- myBigFont   = "-*-terminus-medium-*-*-*-*-240-*-*-*-*-*-*"
+myFont      = "-*-SauceCodePro Nerd Font-medium-*-*-*-*-160-*-*-*-*-*-*"
+myBigFont   = "-*-SauceCodePro Nerd Fon-medium-*-*-*-*-240-*-*-*-*-*-*"
+myWideFont  = "xft:Eurostar Black Extended:"
+            ++ "style=Regular:pixelsize=180:hinting=true"
+
+-- this is a "fake title" used as a highlight bar in lieu of full borders
+-- (I find this a cleaner and less visually intrusive solution)
+topBarTheme = def
+    {
+      fontName              = myFont
+    , inactiveBorderColor   = base03
+    , inactiveColor         = base03
+    , inactiveTextColor     = base03
+    , activeBorderColor     = active
+    , activeColor           = active
+    , activeTextColor       = active
+    , urgentBorderColor     = red
+    , urgentTextColor       = yellow
+    , decoHeight            = topbar
+    }
+
+addTopBar = noFrillsDeco shrinkText topBarTheme
+
+myTabTheme = def
+    { fontName              = myFont
+    , activeColor           = active
+    , inactiveColor         = base02
+    , activeBorderColor     = active
+    , inactiveBorderColor   = base02
+    , activeTextColor       = base03
+    , inactiveTextColor     = base00
+    }
 
 
 ------------------------------------------------------------------------
