@@ -5,6 +5,7 @@
 import System.IO
 import System.Exit
 import XMonad
+import XMonad.Actions.Navigation2D
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -15,7 +16,6 @@ import XMonad.Layout.Fullscreen
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Named
-import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
@@ -25,6 +25,7 @@ import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
+import XMonad.Layout.ZoomRow
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -122,6 +123,14 @@ binarySpacePartition = named "Binary Space Parition"
                        $ subLayout [] Simplest
                        $ myGaps
                        $ spacing gap (emptyBSP)
+zoomRowLayout       = named "Zoom Row"
+                       $avoidStruts
+                       $ addTopBar
+                       $ windowNavigation
+                       $ addTabs shrinkText myTabTheme
+                       $ subLayout [] Simplest
+                       $ myGaps
+                       $ spacing gap (zoomRow)
 tallLayout           = named "Tall"
                        $ avoidStruts
                        $ addTopBar
@@ -143,11 +152,24 @@ tab                  = named "Tabbed"
                        $ addTopBar
                        $ myGaps
                        $ tabbed shrinkText myTabTheme
+-- You can checkout xmonad layouts from the link below. Test them out by
+-- adding the layout to the below
+-- https://github.com/xmonad/xmonad/wiki/Layouts
+-- myExperimentLayout     = named "experimentLayout"
+--                        $avoidStruts
+--                        $ addTopBar
+--                        $ windowNavigation
+--                        $ addTabs shrinkText myTabTheme
+--                        $ subLayout [] Simplest
+--                        $ myGaps
+--                        $ spacing gap (experimentLayout)    -- Place a layout here
 
 myLayout = smartBorders
            $ mkToggle (NOBORDERS ?? FULL ?? EOT)
            $  threeColumnLayout     |||
+              -- myExperimentLayout    |||  -- uncomment to tryout the layout
               binarySpacePartition  |||
+              zoomRowLayout         |||
               tallLayout            |||
               mirrorLayout          |||
               tab
@@ -466,18 +488,23 @@ myStartupHook = spawn "bash ~/.xmonad/startup.sh"
 --
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-  xmonad $ docks defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = hPutStrLn xmproc
-          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-          , ppSep = "   "
+  xmonad $ docks
+         $ navigation2D def
+                             (xK_Up, xK_Left, xK_Down, xK_Right)
+                             [(mod4Mask,               windowGo  ),
+                              (mod4Mask .|. shiftMask, windowSwap)]
+                             False
+         $ defaults {
+         logHook = dynamicLogWithPP $ xmobarPP {
+               ppOutput = hPutStrLn xmproc
+             , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+             , ppSep = "   "
+         }
+         , manageHook = manageDocks <+> myManageHook
+         , handleEventHook    = myEventHook
+         , startupHook = setWMName "LG3D"
       }
-      , manageHook = manageDocks <+> myManageHook
-      , handleEventHook    = myEventHook
-      , startupHook = setWMName "LG3D"
-  }
-
 
 ------------------------------------------------------------------------
 -- Combine it all together
