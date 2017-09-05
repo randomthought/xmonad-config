@@ -78,49 +78,49 @@ get stranded once you logout and back in.
 
 |                           Key Binding                        |                        Action                          |
 |-------------------------------------------------------------:|:-------------------------------------------------------|
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Return</kbd>            |                      Start a terminal                  |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>0</kbd>                  |                        Lock screen                     |
-| <kbd>Alt</kbd>+<kbd>p</kbd> | Start dmenu.  Once it comes up, type the name of a program and enter |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take screenshot in select mode. Click or click and drag to select |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take fullscreen screenshot. Supports multiple monitors |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> | Close focused window |
-| <kbd>Alt</kbd>+<kbd>Space</kbd> | Change workspace layout |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd> | Change back to default workspace layout |
-| <kbd>Alt</kbd>+<kbd>n</kbd> | Resize viewed windows to the correct size |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Left</kbd> | Tab current focused window with the window to the left     |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Right</kbd> | Tab current focused window with the window to the right |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Up</kbd> | Tab current focused window with the window above |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Down</kbd> | Tab current focused window with the window below |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>u</kbd> | Ungroup the current tabbed windows |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>m</kbd> | Merge all windows in the current workspace to one tabbed window |
-| <kbd>Alt</kbd>+<kbd>Tab</kbd> | Focus next tabbed window |
-| <kbd>Alt</kbd>+<kbd>Left</kbd> | Focus on window to the Left |
-| <kbd>Alt</kbd>+<kbd>Right</kbd> | Focus on window to the Right |
-| <kbd>Alt</kbd>+<kbd>Up</kbd> | Focus on window above |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Left</kbd> | Swap adjacent window to the left |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Right</kbd> | Swap adjacent window to the right |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Up</kbd> | Swap adjacent window above |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Down</kbd> | Swap adjacent window below |
-| <kbd>Alt</kbd>+<kbd>m</kbd> | Focus master window |
-| <kbd>Alt</kbd>+<kbd>Return</kbd> | Swap focused window with master window |
-| <kbd>Alt</kbd>+<kbd>h</kbd> | Shrink master window area |
-| <kbd>Alt</kbd>+<kbd>l</kbd> | Expand master window area |
-| <kbd>Alt</kbd>+<kbd>t</kbd> | Push floating window back into tiling |
-| <kbd>Alt</kbd>+<kbd>,</kbd> | Increment number of windows in master window area |
-| <kbd>Alt</kbd>+<kbd>.</kbd> | Decrement number of windows in master window area |
-| <kbd>Alt</kbd>+<kbd>q</kbd> | Restart xmonad. This reloads xmonad configuration, does not logout |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>q</kbd> | Quit xmonad and logout |
-| <kbd>Alt</kbd>+<kbd>[1-9]</kbd> | Switch to workspace 1-9, depending on which number was pressed |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>[1-9]</kbd> | Send focused window to workspace 1-9 |
-| <kbd>Alt</kbd>+<kbd>w</kbd> | Focus left-most monitor (Xinerama screen 1) |
-| <kbd>Alt</kbd>+<kbd>e</kbd> | Focus center-most monitor (Xinerama screen 2) |
-| <kbd>Alt</kbd>+<kbd>r</kbd> | Focus right-most monitor (Xinerama screen 3) |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>w</kbd> | Send focused window to workspace on left-most monitor |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Send focused window to workspace on center-most monitor |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Send focused window to workspace on right-most monitor |
-| <kbd>Alt</kbd>+<kbd>Left Mouse Drag</kbd> | Drag focused window out of tiling |
-| <kbd>Alt</kbd>+<kbd>Right Mouse Drag</kbd> | Resize focused window, bring out of tiling if needed |
-| <kbd>Alt</kbd>+<kbd>Right Mouse Drag</kbd> | Resize focused window, bring out of tiling if needed |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>Return</kbd>            |                      Start a terminal                  |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>0</kbd>                  |                        Lock screen                     |
+| <kbd>Win</kbd>+<kbd>p</kbd> | Start dmenu.  Once it comes up, type the name of a program and enter |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take screenshot in select mode. Click or click and drag to select |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take fullscreen screenshot. Supports multiple monitors |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd> | Close focused window |
+| <kbd>Win</kbd>+<kbd>Space</kbd> | Change workspace layout |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd> | Change back to default workspace layout |
+| <kbd>Win</kbd>+<kbd>n</kbd> | Resize viewed windows to the correct size |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Left</kbd>        | Tab current focused window with the window to the left     |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Right</kbd> | Tab current focused window with the window to the right |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Up</kbd> | Tab current focused window with the window above |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Down</kbd> | Tab current focused window with the window below |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>u</kbd> | Ungroup the current tabbed windows |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>m</kbd> | Merge all windows in the current workspace to one tabbed window |
+| <kbd>Win</kbd>+<kbd>Tab</kbd> | Focus next tabbed window |
+| <kbd>Win</kbd>+<kbd>Left</kbd> | Focus on window to the Left |
+| <kbd>Win</kbd>+<kbd>Right</kbd> | Focus on window to the Right |
+| <kbd>Win</kbd>+<kbd>Up</kbd> | Focus on window above |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Left</kbd> | Swap adjacent window to the left |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Right</kbd> | Swap adjacent window to the right |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Up</kbd> | Swap adjacent window above |
+| <kbd>Win</kbd>+<kbd>Ctrl</kbd>+<kbd>Down</kbd> | Swap adjacent window below |
+| <kbd>Win</kbd>+<kbd>m</kbd> | Focus master window |
+| <kbd>Win</kbd>+<kbd>Return</kbd> | Swap focused window with master window |
+| <kbd>Win</kbd>+<kbd>h</kbd> | Shrink master window area |
+| <kbd>Win</kbd>+<kbd>l</kbd> | Expand master window area |
+| <kbd>Win</kbd>+<kbd>t</kbd> | Push floating window back into tiling |
+| <kbd>Win</kbd>+<kbd>,</kbd> | Increment number of windows in master window area |
+| <kbd>Win</kbd>+<kbd>.</kbd> | Decrement number of windows in master window area |
+| <kbd>Win</kbd>+<kbd>q</kbd> | Restart xmonad. This reloads xmonad configuration, does not logout |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>q</kbd> | Quit xmonad and logout |
+| <kbd>Win</kbd>+<kbd>[1-9]</kbd> | Switch to workspace 1-9, depending on which number was pressed |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>[1-9]</kbd> | Send focused window to workspace 1-9 |
+| <kbd>Win</kbd>+<kbd>w</kbd> | Focus left-most monitor (Xinerama screen 1) |
+| <kbd>Win</kbd>+<kbd>e</kbd> | Focus center-most monitor (Xinerama screen 2) |
+| <kbd>Win</kbd>+<kbd>r</kbd> | Focus right-most monitor (Xinerama screen 3) |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>w</kbd> | Send focused window to workspace on left-most monitor |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>e</kbd> | Send focused window to workspace on center-most monitor |
+| <kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd> | Send focused window to workspace on right-most monitor |
+| <kbd>Win</kbd>+<kbd>Left Mouse Drag</kbd> | Drag focused window out of tiling |
+| <kbd>Win</kbd>+<kbd>Right Mouse Drag</kbd> | Resize focused window, bring out of tiling if needed |
+| <kbd>Win</kbd>+<kbd>Right Mouse Drag</kbd> | Resize focused window, bring out of tiling if needed |
 
 
 ## Personalizing or modifying xmonad-config
