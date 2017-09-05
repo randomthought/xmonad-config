@@ -14,9 +14,9 @@ Haskell or even to xmonad itself.
 
 This project contains a completely working and very usable xmonad
 configuration "out of the box".  If you are just starting out with xmonad,
-this will give you a configuration that I personally use for around 12 hours
-every day.  Thought has been put into the colors, key bindings, layouts,
-and supplementary scripts to make life easier.
+this will give you a configuration that I personally use every day. Thought it
+has been put into the colors, key bindings, layouts, and supplementary scripts 
+to make life easier.
 
 This project is also recommended for advanced xmonad users, who may just not
 want to reinvent the wheel.  All source provided with this project is well
