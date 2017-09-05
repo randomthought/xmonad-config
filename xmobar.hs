@@ -17,7 +17,7 @@ Config {
                                  ,"-n","#bbc2cf"
                                  ,"-h","#fb4934"] 50
 
-                    , Run Date "%a %b %_d %k:%M" "date" 300
+                    , Run Date "%a %b %_d %I:%M" "date" 300
                     , Run DynNetwork ["-t","<fc=#4db5bd><icon=/home/malcolm/.xmonad/icons/arrow_down.xbm/></fc> <rx>, <fc=#c678dd><icon=/home/malcolm/.xmonad/icons/arrow_up.xbm/></fc> <tx>"
                                      ,"-H","200"
                                      ,"-L","10"
