@@ -28,6 +28,7 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ZoomRow
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.SpawnOnce
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -41,7 +42,7 @@ import qualified Data.Map        as M
 myTerminal = "termite"
 
 -- The command to lock the screen or show the screensaver.
-myScreensaver = "dm-tool lock"
+myScreensaver = "xscreensaver-command -lock"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
@@ -105,7 +106,8 @@ myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEv
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
-myGaps = gaps [(U,25), (R,25), (L,25), (D,25)]
+outerGaps = 10
+myGaps = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 
 threeColumnLayout    = named "Three Columns"
                        $ avoidStruts
@@ -115,7 +117,7 @@ threeColumnLayout    = named "Three Columns"
                        $ subLayout [] Simplest
                        $ myGaps
                        $ spacing gap (ThreeColMid 1 (3/100) (1/2))
-binarySpacePartition = named "Binary Space Parition"
+binarySpacePartition = named "BSP"
                        $avoidStruts
                        $ addTopBar
                        $ windowNavigation
@@ -480,7 +482,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = spawn "bash ~/.xmonad/startup.sh"
+myStartupHook = do
+  setWMName "LG3D"
+  spawnOnce "bash ~/.xmonad/startup.sh"
 
 
 ------------------------------------------------------------------------
@@ -503,7 +507,6 @@ main = do
          }
          , manageHook = manageDocks <+> myManageHook
          , handleEventHook    = myEventHook
-         , startupHook = setWMName "LG3D"
       }
 
 ------------------------------------------------------------------------
