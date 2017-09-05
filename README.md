@@ -79,7 +79,7 @@ get stranded once you logout and back in.
 |                           Key Binding                        |                        Action                          |
 |-------------------------------------------------------------:|:-------------------------------------------------------|
 | <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Return</kbd>            |                      Start a terminal                  |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>l</kbd>                  |                        Lock screen                     |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>0</kbd>                  |                        Lock screen                     |
 | <kbd>Alt</kbd>+<kbd>p</kbd> | Start dmenu.  Once it comes up, type the name of a program and enter |
 | <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take screenshot in select mode. Click or click and drag to select |
 | <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd> | Take fullscreen screenshot. Supports multiple monitors |
@@ -87,13 +87,22 @@ get stranded once you logout and back in.
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Change workspace layout |
 | <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd> | Change back to default workspace layout |
 | <kbd>Alt</kbd>+<kbd>n</kbd> | Resize viewed windows to the correct size |
-| <kbd>Alt</kbd>+<kbd>Tab</kbd> | Focus next window |
-| <kbd>Alt</kbd>+<kbd>j</kbd> | Focus next window |
-| <kbd>Alt</kbd>+<kbd>k</kbd> | Focus previous window |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Left | Tab current focused window with the window to the left     |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Right | Tab current focused window with the window to the right |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Up | Tab current focused window with the window above |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Down | Tab current focused window with the window below |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>u | Ungroup the current tabbed windows |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>m | Merge all windows in the current workspace to one tabbed window |
+| <kbd>Alt</kbd>+<kbd>Tab</kbd> | Focus next tabbed window |
+| <kbd>Alt</kbd>+<kbd>Left</kbd> | Focus on window to the Left |
+| <kbd>Alt</kbd>+<kbd>Right</kbd> | Focus on window to the Right |
+| <kbd>Alt</kbd>+<kbd>Up</kbd> | Focus on window above |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Left</kbd> | Swap adjacent window to the left |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Right</kbd> | Swap adjacent window to the right |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Up</kbd> | Swap adjacent window above |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+<kbd>Down</kbd> | Swap adjacent window below |
 | <kbd>Alt</kbd>+<kbd>m</kbd> | Focus master window |
 | <kbd>Alt</kbd>+<kbd>Return</kbd> | Swap focused window with master window |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>j</kbd> | Swap focused window with next window |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>k</kbd> | Swap focused window with previous window |
 | <kbd>Alt</kbd>+<kbd>h</kbd> | Shrink master window area |
 | <kbd>Alt</kbd>+<kbd>l</kbd> | Expand master window area |
 | <kbd>Alt</kbd>+<kbd>t</kbd> | Push floating window back into tiling |
