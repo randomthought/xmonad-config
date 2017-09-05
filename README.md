@@ -87,12 +87,12 @@ get stranded once you logout and back in.
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Change workspace layout |
 | <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Space</kbd> | Change back to default workspace layout |
 | <kbd>Alt</kbd>+<kbd>n</kbd> | Resize viewed windows to the correct size |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Left | Tab current focused window with the window to the left     |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Right | Tab current focused window with the window to the right |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Up | Tab current focused window with the window above |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>Down | Tab current focused window with the window below |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>u | Ungroup the current tabbed windows |
-| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>m | Merge all windows in the current workspace to one tabbed window |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Left</kbd> | Tab current focused window with the window to the left     |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Right</kbd> | Tab current focused window with the window to the right |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Up</kbd> | Tab current focused window with the window above |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>Down</kbd> | Tab current focused window with the window below |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>u</kbd> | Ungroup the current tabbed windows |
+| <kbd>Alt</kbd>+<kbd>Ctrl</kbd>+</kbd>+<kbd>m</kbd> | Merge all windows in the current workspace to one tabbed window |
 | <kbd>Alt</kbd>+<kbd>Tab</kbd> | Focus next tabbed window |
 | <kbd>Alt</kbd>+<kbd>Left</kbd> | Focus on window to the Left |
 | <kbd>Alt</kbd>+<kbd>Right</kbd> | Focus on window to the Right |
