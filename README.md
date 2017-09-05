@@ -25,7 +25,8 @@ documented and simple to customize.
 ![First screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot1.png)
 ![Second screenshot of xmonad-config](https://raw.githubusercontent.com/randomthought/xmonad-config/master/screenshot2.png)
 For source code, or to contribute, see the the main project at
-[xmonad-config project page](http://github.com/vicfryzel/xmonad-config).
+[xmonad-config project page](https://github.com/randomthought/xmonad-confi)
+Also please checkout [vicfryzel config](https://github.com/vicfryzel/xmonad-config). It gave me a lot of inspiration to create my own.
 
 
 ## Requirements
