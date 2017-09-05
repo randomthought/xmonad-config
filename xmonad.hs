@@ -1,6 +1,7 @@
 -- xmonad config used by Malcolm MD
 -- https://github.com/randomthought/xmonad-config
 
+
 import System.IO
 import System.Exit
 import XMonad
@@ -13,11 +14,17 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Named
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.Simplest
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -33,14 +40,14 @@ import qualified Data.Map        as M
 myTerminal = "termite"
 
 -- The command to lock the screen or show the screensaver.
-myScreensaver = "/usr/bin/gnome-screensaver-command --lock"
+myScreensaver = "dm-tool lock"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
 mySelectScreenshot = "select-screenshot"
 
 -- The command to take a fullscreen screenshot.
-myScreenshot = "screenshot"
+myScreenshot = "gscreenshot"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
@@ -77,6 +84,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , resource  =? "gpicview"       --> doFloat
     , className =? "MPlayer"        --> doFloat
+    , className =? "Pavucontrol"    --> doFloat
     , className =? "VirtualBox"     --> doShift "4:vm"
     , className =? "Xchat"          --> doShift "5:media"
     , className =? "stalonetray"    --> doIgnore
@@ -96,59 +104,53 @@ myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEv
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
--- myLayout = addTopBar (avoidStruts $ gaps [(U,25), (R,25), (L,25), (D,25)] $ spacing 10 (
---     ThreeColMid 1 (3/100) (1/2) |||
---     emptyBSP |||
---     Tall 1 (3/100) (1/2) |||
---     Mirror (Tall 1 (3/100) (1/2)) |||
---     tabbed shrinkText myTabTheme |||
---     Full )) |||
---     noBorders (fullscreenFull Full)
-
--- myLayout = addTopBar (avoidStruts $ gaps [(U,25), (R,25), (L,25), (D,25)] $ spacing 10 (
---     ThreeColMid 1 (3/100) (1/2) |||
---     emptyBSP |||
---     Tall 1 (3/100) (1/2) |||
---     Mirror (Tall 1 (3/100) (1/2)) |||
---     tabbed shrinkText myTabTheme |||
---     Full )) |||
---     noBorders (fullscreenFull Full)
-
 myGaps = gaps [(U,25), (R,25), (L,25), (D,25)]
 
-threeColumnLayout    = avoidStruts
+threeColumnLayout    = named "Three Columns"
+                       $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
+                       $ addTabs shrinkText myTabTheme
+                       $ subLayout [] Simplest
                        $ myGaps
-                       $ spacing 10 (ThreeColMid 1 (3/100) (1/2))
-binarySpacePartition = avoidStruts
+                       $ spacing gap (ThreeColMid 1 (3/100) (1/2))
+binarySpacePartition = named "Binary Space Parition"
+                       $avoidStruts
                        $ addTopBar
+                       $ windowNavigation
+                       $ addTabs shrinkText myTabTheme
+                       $ subLayout [] Simplest
                        $ myGaps
-                       $ spacing 10 (emptyBSP)
-tallLayout           = avoidStruts
+                       $ spacing gap (emptyBSP)
+tallLayout           = named "Tall"
+                       $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
+                       $ addTabs shrinkText myTabTheme
+                       $ subLayout [] Simplest
                        $ myGaps
-                       $ spacing 10 (Tall 1 (3/100) (1/2))
-mirrorLayout         = avoidStruts
+                       $ spacing gap (Tall 1 (3/100) (1/2))
+mirrorLayout         = named "Mirror"
+                       $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
+                       $ addTabs shrinkText myTabTheme
+                       $ subLayout [] Simplest
                        $ myGaps
-                       $ spacing 10 (Mirror (Tall 1 (3/100) (1/2)))
-tab                  = avoidStruts
+                       $ spacing gap (Mirror (Tall 1 (3/100) (1/2)))
+tab                  = named "Tabbed"
+                       $ avoidStruts
                        $ addTopBar
                        $ myGaps
                        $ tabbed shrinkText myTabTheme
-fullWindow           = avoidStruts
-                       $ addTopBar
-                       $ myGaps
-                       $ spacing 10 Full
-fullScreen           = noBorders (fullscreenFull Full)
 
-myLayout =  threeColumnLayout     |||
-            binarySpacePartition  |||
-            tallLayout            |||
-            mirrorLayout          |||
-            tab                   |||
-            fullWindow            |||
-            fullScreen
+myLayout = smartBorders
+           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
+           $  threeColumnLayout     |||
+              binarySpacePartition  |||
+              tallLayout            |||
+              mirrorLayout          |||
+              tab
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -160,7 +162,7 @@ xmobarTitleColor = "#FFB6B0"
 xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 -- Width of the window border in pixels.
-myBorderWidth = 1
+myBorderWidth = 0
 
 myNormalBorderColor     = "#000000"
 myFocusedBorderColor    = active
@@ -250,7 +252,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn $ XMonad.terminal conf)
 
   -- Lock the screen using command specified by myScreensaver.
-  , ((modMask .|. controlMask, xK_l),
+  , ((modMask, xK_0),
      spawn myScreensaver)
 
   -- Spawn the launcher using command specified by myLauncher.
@@ -266,6 +268,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask .|. controlMask .|. shiftMask, xK_p),
      spawn myScreenshot)
 
+  -- Toggle current focus window to fullscreen
+  , ((modMask, xK_f), sendMessage $ Toggle FULL)
+
   -- Mute volume.
   , ((0, xF86XK_AudioMute),
      spawn "amixer -q set Master toggle")
@@ -276,18 +281,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Increase volume.
   , ((0, xF86XK_AudioRaiseVolume),
-     spawn "amixer -q set Master 5%+")
-
-  -- Mute volume.
-  , ((modMask .|. controlMask, xK_m),
-     spawn "amixer -q set Master toggle")
-
-  -- Decrease volume.
-  , ((modMask .|. controlMask, xK_j),
-     spawn "amixer -q set Master 5%-")
-
-  -- Increase volume.
-  , ((modMask .|. controlMask, xK_k),
      spawn "amixer -q set Master 5%+")
 
   -- Audio previous.
@@ -325,10 +318,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Resize viewed windows to the correct size.
   , ((modMask, xK_n),
      refresh)
-
-  -- Move focus to the next window.
-  , ((modMask, xK_Tab),
-     windows W.focusDown)
 
   -- Move focus to the next window.
   , ((modMask, xK_j),
@@ -401,6 +390,30 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 
+  ++
+  -- Bindings for manage sub tabs in layouts please checkout the link below for reference
+  -- https://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Layout-SubLayouts.html
+  [
+    -- Tab current focused window with the window to the left
+    ((modMask .|. controlMask, xK_h), sendMessage $ pullGroup L)
+    -- Tab current focused window with the window to the right
+  , ((modMask .|. controlMask, xK_l), sendMessage $ pullGroup R)
+    -- Tab current focused window with the window above
+  , ((modMask .|. controlMask, xK_k), sendMessage $ pullGroup U)
+    -- Tab current focused window with the window below
+  , ((modMask .|. controlMask, xK_j), sendMessage $ pullGroup D)
+
+  -- Tab all windows in the current workspace with current window as the focus
+  , ((modMask .|. controlMask, xK_m), withFocused (sendMessage . MergeAll))
+  -- Group the current tabbed windows
+  , ((modMask .|. controlMask, xK_u), withFocused (sendMessage . UnMerge))
+
+  -- Toggle through tabes from the right
+  , ((modMask, xK_Tab), onGroup W.focusDown')
+  ]
+
+
+
 ------------------------------------------------------------------------
 -- Mouse bindings
 --
@@ -445,7 +458,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = spawn "bash ~/.xmonad/startup.sh"
 
 
 ------------------------------------------------------------------------
