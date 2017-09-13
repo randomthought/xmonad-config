@@ -24,7 +24,6 @@ import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
-import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ZoomRow
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
@@ -81,12 +80,12 @@ myManageHook = composeAll
     [
       className =? "Google-chrome"  --> doShift "2:web"
     , resource  =? "desktop_window" --> doIgnore
-    , className =? "Galculator"     --> doFloat
-    , className =? "Steam"          --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , resource  =? "gpicview"       --> doFloat
-    , className =? "MPlayer"        --> doFloat
-    , className =? "Pavucontrol"    --> doFloat
+    , className =? "Galculator"     --> doCenterFloat
+    , className =? "Steam"          --> doCenterFloat
+    , className =? "Gimp"           --> doCenterFloat
+    , resource  =? "gpicview"       --> doCenterFloat
+    , className =? "MPlayer"        --> doCenterFloat
+    , className =? "Pavucontrol"    --> doCenterFloat
     , className =? "VirtualBox"     --> doShift "4:vm"
     , className =? "Xchat"          --> doShift "5:media"
     , className =? "stalonetray"    --> doIgnore
@@ -112,15 +111,13 @@ myGaps = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 threeColumnLayout    = named "Three Columns"
                        $ avoidStruts
                        $ addTopBar
-                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
                        $ spacing gap (ThreeColMid 1 (3/100) (1/2))
 binarySpacePartition = named "BSP"
-                       $avoidStruts
+                       $ avoidStruts
                        $ addTopBar
-                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -128,7 +125,6 @@ binarySpacePartition = named "BSP"
 zoomRowLayout       = named "Zoom Row"
                        $avoidStruts
                        $ addTopBar
-                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -136,7 +132,6 @@ zoomRowLayout       = named "Zoom Row"
 tallLayout           = named "Tall"
                        $ avoidStruts
                        $ addTopBar
-                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -144,7 +139,6 @@ tallLayout           = named "Tall"
 mirrorLayout         = named "Mirror"
                        $ avoidStruts
                        $ addTopBar
-                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -175,6 +169,20 @@ myLayout = smartBorders
               tallLayout            |||
               mirrorLayout          |||
               tab
+
+myNav2DConf = def
+    { defaultTiledNavigation    = centerNavigation
+    , floatNavigation           = centerNavigation
+    , screenNavigation          = lineNavigation
+    , layoutNavigation          = [("Full",          centerNavigation)
+    -- line/center same results   ,("Simple Tabs", lineNavigation)
+    --                            ,("Simple Tabs", centerNavigation)
+                                  ]
+    , unmappedWindowRect        = [("Full", singleWindowRect)
+    -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
+    -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
+                                  ]
+    }
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -436,8 +444,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_Tab), onGroup W.focusDown')
   ]
 
-
-
 ------------------------------------------------------------------------
 -- Mouse bindings
 --
@@ -491,13 +497,13 @@ myStartupHook = do
 -- Run xmonad with all the defaults we set up.
 --
 main = do
-  xmproc <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+  xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
   xmonad $ docks
-         $ navigation2D def
-                             (xK_Up, xK_Left, xK_Down, xK_Right)
-                             [(mod4Mask,               windowGo  ),
-                              (mod4Mask .|. shiftMask, windowSwap)]
-                             False
+         $ withNavigation2DConfig myNav2DConf
+         $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
+                               [(mod4Mask,               windowGo  ),
+                               (mod4Mask .|. shiftMask, windowSwap)]
+                               False
          $ defaults {
          logHook = dynamicLogWithPP $ xmobarPP {
                ppOutput = hPutStrLn xmproc
@@ -532,7 +538,6 @@ defaults = defaultConfig {
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
-    -- layoutHook         = smartBorders $ myLayout,
     layoutHook         = myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook
