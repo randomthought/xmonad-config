@@ -24,6 +24,7 @@ import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoFrillsDecoration
 import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ZoomRow
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
@@ -78,18 +79,19 @@ myWorkspaces = ["1:term","2:web","3:code","4:vm","5:media"] ++ map show [6..9]
 --
 myManageHook = composeAll
     [
-      className =? "Google-chrome"  --> doShift "2:web"
-    , resource  =? "desktop_window" --> doIgnore
-    , className =? "Galculator"     --> doCenterFloat
-    , className =? "Steam"          --> doCenterFloat
-    , className =? "Gimp"           --> doCenterFloat
-    , resource  =? "gpicview"       --> doCenterFloat
-    , className =? "MPlayer"        --> doCenterFloat
-    , className =? "Pavucontrol"    --> doCenterFloat
-    , className =? "VirtualBox"     --> doShift "4:vm"
-    , className =? "Xchat"          --> doShift "5:media"
-    , className =? "stalonetray"    --> doIgnore
-    , isFullscreen                  --> (doF W.focusDown <+> doFullFloat)
+      className =? "Google-chrome"             --> doShift "2:web"
+    , resource  =? "desktop_window"            --> doIgnore
+    , className =? "Galculator"                --> doCenterFloat
+    , className =? "Steam"                     --> doCenterFloat
+    , className =? "Gimp"                      --> doCenterFloat
+    , resource  =? "gpicview"                  --> doCenterFloat
+    , className =? "MPlayer"                   --> doCenterFloat
+    , className =? "Pavucontrol"               --> doCenterFloat
+    , className =? "Mate-power-preferences"    --> doCenterFloat
+    , className =? "VirtualBox"                --> doShift "4:vm"
+    , className =? "Xchat"                     --> doShift "5:media"
+    , className =? "stalonetray"               --> doIgnore
+    , isFullscreen                             --> (doF W.focusDown <+> doFullFloat)
     ] <+> fullscreenManageHook
 
 myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEventHook
@@ -111,6 +113,7 @@ myGaps = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 threeColumnLayout    = named "Three Columns"
                        $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -118,6 +121,7 @@ threeColumnLayout    = named "Three Columns"
 binarySpacePartition = named "BSP"
                        $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -125,6 +129,7 @@ binarySpacePartition = named "BSP"
 zoomRowLayout       = named "Zoom Row"
                        $avoidStruts
                        $ addTopBar
+                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -132,6 +137,7 @@ zoomRowLayout       = named "Zoom Row"
 tallLayout           = named "Tall"
                        $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
@@ -139,15 +145,17 @@ tallLayout           = named "Tall"
 mirrorLayout         = named "Mirror"
                        $ avoidStruts
                        $ addTopBar
+                       $ windowNavigation
                        $ addTabs shrinkText myTabTheme
                        $ subLayout [] Simplest
                        $ myGaps
                        $ spacing gap (Mirror (Tall 1 (3/100) (1/2)))
-tab                  = named "Tabbed"
+tab                  = named "Tabs"
                        $ avoidStruts
                        $ addTopBar
                        $ myGaps
                        $ tabbed shrinkText myTabTheme
+
 -- You can checkout xmonad layouts from the link below. Test them out by
 -- adding the layout to the below
 -- https://github.com/xmonad/xmonad/wiki/Layouts
@@ -162,9 +170,9 @@ tab                  = named "Tabbed"
 
 myLayout = smartBorders
            $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-           $  threeColumnLayout     |||
+           $  binarySpacePartition  |||
+              threeColumnLayout     |||
               -- myExperimentLayout    |||  -- uncomment to tryout the layout
-              binarySpacePartition  |||
               zoomRowLayout         |||
               tallLayout            |||
               mirrorLayout          |||
@@ -175,12 +183,12 @@ myNav2DConf = def
     , floatNavigation           = centerNavigation
     , screenNavigation          = lineNavigation
     , layoutNavigation          = [("Full",          centerNavigation)
-    -- line/center same results   ,("Simple Tabs", lineNavigation)
-    --                            ,("Simple Tabs", centerNavigation)
+    -- line/center same results   ,("Tabs", lineNavigation)
+    --                            ,("Tabs", centerNavigation)
                                   ]
     , unmappedWindowRect        = [("Full", singleWindowRect)
-    -- works but breaks tab deco  ,("Simple Tabs", singleWindowRect)
-    -- doesn't work but deco ok   ,("Simple Tabs", fullScreenRect)
+    -- works but breaks tab deco  ,("Tabs", singleWindowRect)
+    -- doesn't work but deco ok   ,("Tabs", fullScreenRect)
                                   ]
     }
 
@@ -273,6 +281,7 @@ myTabTheme = def
 -- "windows key" is usually mod4Mask.
 --
 myModMask = mod4Mask
+altMask = mod1Mask
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ----------------------------------------------------------------------
@@ -444,6 +453,21 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_Tab), onGroup W.focusDown')
   ]
 
+  ++
+  -- Some bindings for BinarySpacePartition
+  -- https://github.com/benweitzman/BinarySpacePartition
+  [
+    ((modMask .|. controlMask,               xK_Right), sendMessage $ ExpandTowards R)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Right), sendMessage $ ShrinkFrom R)
+  , ((modMask .|. controlMask,               xK_Left),  sendMessage $ ExpandTowards L)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Left),  sendMessage $ ShrinkFrom L)
+  , ((modMask .|. controlMask,               xK_Down),  sendMessage $ ExpandTowards D)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Down),  sendMessage $ ShrinkFrom D)
+  , ((modMask .|. controlMask,               xK_Up),    sendMessage $ ExpandTowards U)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Up),    sendMessage $ ShrinkFrom U)
+  , ((modMask,                               xK_r),     sendMessage Rotate)
+  ]
+
 ------------------------------------------------------------------------
 -- Mouse bindings
 --
@@ -501,8 +525,10 @@ main = do
   xmonad $ docks
          $ withNavigation2DConfig myNav2DConf
          $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
-                               [(mod4Mask,               windowGo  ),
-                               (mod4Mask .|. shiftMask, windowSwap)]
+                               [
+                                  (mod4Mask,               windowGo  )
+                                , (mod4Mask .|. shiftMask, windowSwap)
+                               ]
                                False
          $ defaults {
          logHook = dynamicLogWithPP $ xmobarPP {
