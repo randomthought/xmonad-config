@@ -22,6 +22,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.Renamed
 import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
@@ -92,9 +93,9 @@ myManageHook = composeAll
     , className =? "Xchat"                     --> doShift "5:media"
     , className =? "stalonetray"               --> doIgnore
     , isFullscreen                             --> (doF W.focusDown <+> doFullFloat)
-    ] <+> fullscreenManageHook
+    -- , isFullscreen                             --> doFullFloat
+    ]
 
-myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEventHook
 
 
 ------------------------------------------------------------------------
@@ -109,74 +110,29 @@ myEventHook = E.ewmhDesktopsEventHook <+> E.fullscreenEventHook <+> fullscreenEv
 
 outerGaps = 10
 myGaps = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
-
-threeColumnLayout    = named "Three Columns"
-                       $ avoidStruts
-                       $ addTopBar
-                       $ windowNavigation
-                       $ addTabs shrinkText myTabTheme
-                       $ subLayout [] Simplest
-                       $ myGaps
-                       $ spacing gap (ThreeColMid 1 (3/100) (1/2))
-binarySpacePartition = named "BSP"
-                       $ avoidStruts
-                       $ addTopBar
-                       $ windowNavigation
-                       $ addTabs shrinkText myTabTheme
-                       $ subLayout [] Simplest
-                       $ myGaps
-                       $ spacing gap (emptyBSP)
-zoomRowLayout       = named "Zoom Row"
-                       $avoidStruts
-                       $ addTopBar
-                       $ windowNavigation
-                       $ addTabs shrinkText myTabTheme
-                       $ subLayout [] Simplest
-                       $ myGaps
-                       $ spacing gap (zoomRow)
-tallLayout           = named "Tall"
-                       $ avoidStruts
-                       $ addTopBar
-                       $ windowNavigation
-                       $ addTabs shrinkText myTabTheme
-                       $ subLayout [] Simplest
-                       $ myGaps
-                       $ spacing gap (Tall 1 (3/100) (1/2))
-mirrorLayout         = named "Mirror"
-                       $ avoidStruts
-                       $ addTopBar
-                       $ windowNavigation
-                       $ addTabs shrinkText myTabTheme
-                       $ subLayout [] Simplest
-                       $ myGaps
-                       $ spacing gap (Mirror (Tall 1 (3/100) (1/2)))
-tab                  = named "Tabs"
-                       $ avoidStruts
+addSpace = renamed [CutWordsLeft 2] . spacing gap
+tab                  =  avoidStruts
                        $ addTopBar
                        $ myGaps
+                       $ renamed [Replace "Tabbed"]
                        $ tabbed shrinkText myTabTheme
 
--- You can checkout xmonad layouts from the link below. Test them out by
--- adding the layout to the below
--- https://github.com/xmonad/xmonad/wiki/Layouts
--- myExperimentLayout     = named "experimentLayout"
---                        $avoidStruts
---                        $ addTopBar
---                        $ windowNavigation
---                        $ addTabs shrinkText myTabTheme
---                        $ subLayout [] Simplest
---                        $ myGaps
---                        $ spacing gap (experimentLayout)    -- Place a layout here
+layouts              = avoidStruts (
+                        (
+                            addTopBar
+                          $ windowNavigation
+                          $ renamed [CutWordsLeft 1]
+                          $ addTabs shrinkText myTabTheme
+                          $ subLayout [] Simplest
+                          $ myGaps
+                          $ addSpace (emptyBSP ||| ThreeColMid 1 (3/100) (1/2) ||| zoomRow)
+                        )
+                        ||| tab
+                       )
 
 myLayout = smartBorders
            $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-           $  binarySpacePartition  |||
-              threeColumnLayout     |||
-              -- myExperimentLayout    |||  -- uncomment to tryout the layout
-              zoomRowLayout         |||
-              tallLayout            |||
-              mirrorLayout          |||
-              tab
+           $ layouts
 
 myNav2DConf = def
     { defaultTiledNavigation    = centerNavigation
@@ -260,7 +216,7 @@ topBarTheme = def
     , decoHeight            = topbar
     }
 
-addTopBar = noFrillsDeco shrinkText topBarTheme
+addTopBar = renamed [CutWordsLeft 1] . noFrillsDeco shrinkText topBarTheme
 
 myTabTheme = def
     { fontName              = myFont
@@ -537,8 +493,6 @@ main = do
              , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
              , ppSep = "   "
          }
-         , manageHook = manageDocks <+> myManageHook
-         , handleEventHook    = myEventHook
       }
 
 ------------------------------------------------------------------------
@@ -565,6 +519,8 @@ defaults = defaultConfig {
 
     -- hooks, layouts
     layoutHook         = myLayout,
-    manageHook         = myManageHook,
+    -- handleEventHook    = E.fullscreenEventHook,
+    handleEventHook    = fullscreenEventHook,
+    manageHook         = manageDocks <+> myManageHook,
     startupHook        = myStartupHook
 }
