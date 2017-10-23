@@ -1,21 +1,20 @@
 -- xmonad config used by Malcolm MD
 -- https://github.com/randomthought/xmonad-config
 
-
 import System.IO
 import System.Exit
+import qualified Data.List as L
 import XMonad
 import XMonad.Actions.Navigation2D
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import qualified XMonad.Hooks.EwmhDesktops as E
+
 import XMonad.Layout.Gaps
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Named
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Spacing
@@ -27,16 +26,19 @@ import XMonad.Layout.Simplest
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ZoomRow
+
+import XMonad.Hooks.EwmhDesktops (ewmh)
+import System.Taffybar.Hooks.PagerHints (pagerHints)
+
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Util.SpawnOnce
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
 
 ----------------------------mupdf--------------------------------------------
--- Terminal
+-- Terminimport XMonad.Hooks.EwmhDesktopsal
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -80,19 +82,20 @@ myWorkspaces = ["1:term","2:web","3:code","4:vm","5:media"] ++ map show [6..9]
 --
 myManageHook = composeAll
     [
-      className =? "Google-chrome"             --> doShift "2:web"
-    , resource  =? "desktop_window"            --> doIgnore
-    , className =? "Galculator"                --> doCenterFloat
-    , className =? "Steam"                     --> doCenterFloat
-    , className =? "Gimp"                      --> doCenterFloat
-    , resource  =? "gpicview"                  --> doCenterFloat
-    , className =? "MPlayer"                   --> doCenterFloat
-    , className =? "Pavucontrol"               --> doCenterFloat
-    , className =? "Mate-power-preferences"    --> doCenterFloat
-    , className =? "VirtualBox"                --> doShift "4:vm"
-    , className =? "Xchat"                     --> doShift "5:media"
-    , className =? "stalonetray"               --> doIgnore
-    , isFullscreen                             --> (doF W.focusDown <+> doFullFloat)
+      className =? "Google-chrome"                --> doShift "2:web"
+    , resource  =? "desktop_window"               --> doIgnore
+    , className =? "Galculator"                   --> doCenterFloat
+    , className =? "Steam"                        --> doCenterFloat
+    , className =? "Gimp"                         --> doCenterFloat
+    , resource  =? "gpicview"                     --> doCenterFloat
+    , className =? "MPlayer"                      --> doCenterFloat
+    , className =? "Pavucontrol"                  --> doCenterFloat
+    , className =? "Mate-power-preferences"       --> doCenterFloat
+    , className =? "Xfce4-power-manager-settings" --> doCenterFloat
+    , className =? "VirtualBox"                   --> doShift "4:vm"
+    , className =? "Xchat"                        --> doShift "5:media"
+    , className =? "stalonetray"                  --> doIgnore
+    , isFullscreen                                --> (doF W.focusDown <+> doFullFloat)
     -- , isFullscreen                             --> doFullFloat
     ]
 
@@ -108,31 +111,47 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
-outerGaps = 10
-myGaps = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
-addSpace = renamed [CutWordsLeft 2] . spacing gap
-tab                  =  avoidStruts
-                       $ addTopBar
-                       $ myGaps
-                       $ renamed [Replace "Tabbed"]
-                       $ tabbed shrinkText myTabTheme
+-- Defined icons for various layout types
+myIcons layout
+    | is "BSP"          = "<icon=/home/malcolm/.xmonad/icons/layout-bsp.xbm/>"
+    | is "Mirror"       = "<icon=/home/malcolm/.xmonad/icons/layout-mirror.xbm/>"
+    | is "Tall"         = "<icon=/home/malcolm/.xmonad/icons/layout-tall.xbm/>"
+    | is "Full"         = "<icon=/home/malcolm/.xmonad/icons/layout-full.xbm/>"
+    | is "Simple Float" = "<icon=/home/malcolm/.xmonad/icons/layout-float.xbm/>"
+    | otherwise         = "<icon=/home/malcolm/.xmonad/icons/layout-gimp.xbm/>"
+  where is = (`L.isInfixOf` layout)
 
-layouts              = avoidStruts (
-                        (
-                            addTopBar
-                          $ windowNavigation
-                          $ renamed [CutWordsLeft 1]
-                          $ addTabs shrinkText myTabTheme
-                          $ subLayout [] Simplest
-                          $ myGaps
-                          $ addSpace (emptyBSP ||| ThreeColMid 1 (3/100) (1/2) ||| zoomRow)
-                        )
-                        ||| tab
-                       )
+outerGaps    = 10
+myGaps       = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
+addSpace     = renamed [CutWordsLeft 2] . spacing gap
+tab          =  avoidStruts
+               $ addTopBar
+               $ myGaps
+               $ renamed [Replace "Tabbed"]
+               $ tabbed shrinkText myTabTheme
 
-myLayout = smartBorders
-           $ mkToggle (NOBORDERS ?? FULL ?? EOT)
-           $ layouts
+layouts      = avoidStruts (
+                (
+                    addTopBar
+                  $ windowNavigation
+                  $ renamed [CutWordsLeft 1]
+                  $ addTabs shrinkText myTabTheme
+                  $ subLayout [] Simplest
+                  $ myGaps
+                  $ addSpace (
+                        emptyBSP
+                    ||| ThreeColMid 1 (3/100) (1/2)
+                    ||| zoomRow
+                    ||| Mirror (Tall 1 (3/100) (1/2))
+                    ||| Tall 1 (3/100) (1/2)
+                    )
+                )
+                ||| tab
+               )
+
+myLayout    = smartBorders
+              $ mkToggle (NOBORDERS ?? FULL ?? EOT)
+              $ layouts
 
 myNav2DConf = def
     { defaultTiledNavigation    = centerNavigation
@@ -148,14 +167,15 @@ myNav2DConf = def
                                   ]
     }
 
+
 ------------------------------------------------------------------------
 -- Colors and borders
 
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#FFB6B0"
+xmobarTitleColor = "#C678DD"
 
 -- Color of current workspace in xmobar.
-xmobarCurrentWorkspaceColor = "#CEFFAC"
+xmobarCurrentWorkspaceColor = "#51AFEF"
 
 -- Width of the window border in pixels.
 myBorderWidth = 0
@@ -470,7 +490,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- By default, do nothing.
 myStartupHook = do
   setWMName "LG3D"
-  spawnOnce "bash ~/.xmonad/startup.sh"
+  spawn     "bash ~/.xmonad/startup.sh"
 
 
 ------------------------------------------------------------------------
@@ -488,10 +508,14 @@ main = do
                                False
          $ defaults {
          logHook = dynamicLogWithPP $ xmobarPP {
-               ppOutput = hPutStrLn xmproc
-             , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
-             , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-             , ppSep = "   "
+             --   ppOutput = hPutStrLn xmproc
+             -- , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
+             -- , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+             -- , ppSep = "   "
+                  ppOutput = hPutStrLn xmproc
+                , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
+                , ppTitle = xmobarColor xmobarTitleColor "" . shorten 50
+                , ppLayout = xmobarColor "#ECBE7B" "" . myIcons
          }
       }
 
@@ -503,7 +527,7 @@ main = do
 --
 -- No need to modify this.
 --
-defaults = defaultConfig {
+defaults = def {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
