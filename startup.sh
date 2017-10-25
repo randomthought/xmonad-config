@@ -1,13 +1,8 @@
 #!/bin/sh
 
 # Stand lone tray
-if [ -z "$(pgrep stalonetray)" ] ; then
-    stalonetray --window-type desktop \
-                --background '#282c34' \
-                --window-strut none \
-                --icon-gravity NE \
-                --icon-size=27 \
-                --geometry 6x1-1+0 &
+if [ -z "$(pgrep taffybar)" ] ; then
+    kill $(pgrep taffybar); taffybar &
 fi
 # Power manager
 if [ -z "$(pgrep xfce4-power-manager)" ] ; then
@@ -36,4 +31,8 @@ fi
 # Network Applet
 if [ -z "$(pgrep nm-applet)" ] ; then
     nm-applet &
+fi
+# Google Drive
+if [ -z "$(pgrep google-drive-ocamlfuse)" ] ; then
+    google-drive-ocamlfuse Google/ &
 fi
