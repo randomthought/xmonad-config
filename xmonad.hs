@@ -3,7 +3,6 @@
 
 import System.IO
 import System.Exit
-import System.Taffybar.Hooks.PagerHints (pagerHints)
 
 import qualified Data.List as L
 
@@ -44,7 +43,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "termite"
+myTerminal = "urxvt"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "xscreensaver-command -lock"
@@ -490,6 +489,7 @@ myStartupHook = do
 -- Run xmonad with all the defaults we set up.
 --
 main = do
+  xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
   xmonad $ docks
          $ withNavigation2DConfig myNav2DConf
          $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
@@ -499,13 +499,13 @@ main = do
                                ]
                                False
          $ ewmh
-         $ pagerHints
          $ defaults {
          logHook = dynamicLogWithPP $ xmobarPP {
                   ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
                 , ppTitle = xmobarColor xmobarTitleColor "" . shorten 50
-                , ppLayout = xmobarColor "#ECBE7B" "" . layouts
-         } >> updatePointer (0.75, 0.75) (0.75, 0.75)
+                , ppSep = "   "
+                , ppOutput = hPutStrLn xmproc
+         }
       }
 
 ------------------------------------------------------------------------
