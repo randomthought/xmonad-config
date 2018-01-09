@@ -114,16 +114,6 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 
--- Defined icons for various layout types
-myIcons layout
-    | is "BSP"          = "<icon=/home/malcolm/.xmonad/icons/layout-bsp.xbm/>"
-    | is "Mirror"       = "<icon=/home/malcolm/.xmonad/icons/layout-mirror.xbm/>"
-    | is "Tall"         = "<icon=/home/malcolm/.xmonad/icons/layout-tall.xbm/>"
-    | is "Full"         = "<icon=/home/malcolm/.xmonad/icons/layout-full.xbm/>"
-    | is "Simple Float" = "<icon=/home/malcolm/.xmonad/icons/layout-float.xbm/>"
-    | otherwise         = "<icon=/home/malcolm/.xmonad/icons/layout-gimp.xbm/>"
-  where is = (`L.isInfixOf` layout)
-
 outerGaps    = 10
 myGaps       = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 addSpace     = renamed [CutWordsLeft 2] . spacing gap
@@ -218,8 +208,8 @@ unfocusColor = base02
 
 -- myFont      = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
 -- myBigFont   = "-*-terminus-medium-*-*-*-*-240-*-*-*-*-*-*"
-myFont      = "-*-SauceCodePro Nerd Font-medium-*-*-*-*-160-*-*-*-*-*-*"
-myBigFont   = "-*-SauceCodePro Nerd Fon-medium-*-*-*-*-240-*-*-*-*-*-*"
+myFont      = "-*-Zekton-medium-*-*-*-*-160-*-*-*-*-*-*"
+myBigFont   = "-*-Zekton-medium-*-*-*-*-240-*-*-*-*-*-*"
 myWideFont  = "xft:Eurostar Black Extended:"
             ++ "style=Regular:pixelsize=180:hinting=true"
 
@@ -514,8 +504,8 @@ main = do
          logHook = dynamicLogWithPP $ xmobarPP {
                   ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
                 , ppTitle = xmobarColor xmobarTitleColor "" . shorten 50
-                , ppLayout = xmobarColor "#ECBE7B" "" . myIcons
-         }
+                , ppLayout = xmobarColor "#ECBE7B" "" . layouts
+         } >> updatePointer (0.75, 0.75) (0.75, 0.75)
       }
 
 ------------------------------------------------------------------------

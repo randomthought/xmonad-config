@@ -1,8 +1,15 @@
 #!/bin/sh
 
-# Stand lone tray
-if [ -z "$(pgrep taffybar)" ] ; then
-    kill $(pgrep taffybar); taffybar &
+# System tray
+if [ -z "$(pgrep trayer)" ] ; then
+    trayer --edge top \
+           --align right \
+           --widthtype percent \
+           --height 22 \
+           --alpha 0 \
+           --transparent true \
+           --width 5 \
+           --tint 0x282c34 &
 fi
 # Power manager
 if [ -z "$(pgrep xfce4-power-manager)" ] ; then
@@ -33,6 +40,6 @@ if [ -z "$(pgrep nm-applet)" ] ; then
     nm-applet &
 fi
 # Google Drive
-if [ -z "$(pgrep google-drive-ocamlfuse)" ] ; then
-    google-drive-ocamlfuse Google/ &
+if [ -z "$(pgrep insync)" ] ; then
+    insync start &
 fi
