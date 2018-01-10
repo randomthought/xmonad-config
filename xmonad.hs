@@ -8,6 +8,8 @@ import qualified Data.List as L
 
 import XMonad
 import XMonad.Actions.Navigation2D
+import XMonad.Actions.UpdatePointer
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -65,7 +67,7 @@ myLauncher = "rofi -show"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:code","4:vm","5:media"] ++ map show [6..9]
+myWorkspaces = ["1: term","2: web","3: code","4: media"] ++ map show [5..9]
 
 
 ------------------------------------------------------------------------
@@ -205,10 +207,10 @@ inactive    = base02
 focusColor  = blue
 unfocusColor = base02
 
--- myFont      = "-*-terminus-medium-*-*-*-*-160-*-*-*-*-*-*"
--- myBigFont   = "-*-terminus-medium-*-*-*-*-240-*-*-*-*-*-*"
-myFont      = "-*-Zekton-medium-*-*-*-*-160-*-*-*-*-*-*"
-myBigFont   = "-*-Zekton-medium-*-*-*-*-240-*-*-*-*-*-*"
+-- myFont      = "-*-Zekton-medium-*-*-*-*-160-*-*-*-*-*-*"
+-- myBigFont   = "-*-Zekton-medium-*-*-*-*-240-*-*-*-*-*-*"
+myFont      = "xft:Zekton:size=11:bold:antialias=true"
+myBigFont   = "xft:Zekton:size=11:bold:antialias=true"
 myWideFont  = "xft:Eurostar Black Extended:"
             ++ "style=Regular:pixelsize=180:hinting=true"
 
@@ -228,7 +230,7 @@ topBarTheme = def
     , decoHeight            = topbar
     }
 
-addTopBar = renamed [CutWordsLeft 1] . noFrillsDeco shrinkText topBarTheme
+addTopBar =  noFrillsDeco shrinkText topBarTheme
 
 myTabTheme = def
     { fontName              = myFont
@@ -500,12 +502,12 @@ main = do
                                False
          $ ewmh
          $ defaults {
-         logHook = dynamicLogWithPP $ xmobarPP {
+         logHook = dynamicLogWithPP xmobarPP {
                   ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
                 , ppTitle = xmobarColor xmobarTitleColor "" . shorten 50
                 , ppSep = "   "
                 , ppOutput = hPutStrLn xmproc
-         }
+         } >> updatePointer (0.75, 0.75) (0.75, 0.75)
       }
 
 ------------------------------------------------------------------------
