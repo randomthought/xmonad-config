@@ -3,6 +3,7 @@
 
 import System.IO
 import System.Exit
+import System.Taffybar.Hooks.PagerHints (pagerHints)
 
 import qualified Data.List as L
 
@@ -18,7 +19,7 @@ import XMonad.Hooks.EwmhDesktops (ewmh)
 
 import XMonad.Layout.Gaps
 import XMonad.Layout.Fullscreen
-import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.BinarySpacePartition as BSP
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
@@ -45,7 +46,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "urxvt"
+myTerminal = "termite"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "xscreensaver-command -lock"
@@ -133,7 +134,7 @@ layouts      = avoidStruts (
                   $ subLayout [] Simplest
                   $ myGaps
                   $ addSpace (
-                        emptyBSP
+                        BSP.emptyBSP
                     ||| ThreeColMid 1 (3/100) (1/2)
                     ||| zoomRow
                     ||| Mirror (Tall 1 (3/100) (1/2))
@@ -427,15 +428,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Some bindings for BinarySpacePartition
   -- https://github.com/benweitzman/BinarySpacePartition
   [
-    ((modMask .|. controlMask,               xK_Right), sendMessage $ ExpandTowards R)
-  , ((modMask .|. controlMask .|. shiftMask, xK_Right), sendMessage $ ShrinkFrom R)
-  , ((modMask .|. controlMask,               xK_Left),  sendMessage $ ExpandTowards L)
-  , ((modMask .|. controlMask .|. shiftMask, xK_Left),  sendMessage $ ShrinkFrom L)
-  , ((modMask .|. controlMask,               xK_Down),  sendMessage $ ExpandTowards D)
-  , ((modMask .|. controlMask .|. shiftMask, xK_Down),  sendMessage $ ShrinkFrom D)
-  , ((modMask .|. controlMask,               xK_Up),    sendMessage $ ExpandTowards U)
-  , ((modMask .|. controlMask .|. shiftMask, xK_Up),    sendMessage $ ShrinkFrom U)
-  , ((modMask,                               xK_r),     sendMessage Rotate)
+    ((modMask .|. controlMask,               xK_Right ), sendMessage $ ExpandTowards R)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Right ), sendMessage $ ShrinkFrom R)
+  , ((modMask .|. controlMask,               xK_Left  ), sendMessage $ ExpandTowards L)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Left  ), sendMessage $ ShrinkFrom L)
+  , ((modMask .|. controlMask,               xK_Down  ), sendMessage $ ExpandTowards D)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Down  ), sendMessage $ ShrinkFrom D)
+  , ((modMask .|. controlMask,               xK_Up    ), sendMessage $ ExpandTowards U)
+  , ((modMask .|. controlMask .|. shiftMask, xK_Up    ), sendMessage $ ShrinkFrom U)
+  , ((modMask,                               xK_r     ), sendMessage BSP.Rotate)
+  , ((modMask,                               xK_s     ), sendMessage BSP.Swap)
+  -- , ((modMask,                               xK_n     ), sendMessage BSP.FocusParent)
+  -- , ((modMask .|. controlMask,               xK_n     ), sendMessage BSP.SelectNode)
+  -- , ((modMask .|. shiftMask,                 xK_n     ), sendMessage BSP.MoveNode)
   ]
 
 ------------------------------------------------------------------------
@@ -492,6 +497,7 @@ myStartupHook = do
 --
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
+  -- xmproc <- spawnPipe "taffybar"
   xmonad $ docks
          $ withNavigation2DConfig myNav2DConf
          $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
@@ -501,6 +507,7 @@ main = do
                                ]
                                False
          $ ewmh
+         $ pagerHints
          $ defaults {
          logHook = dynamicLogWithPP xmobarPP {
                   ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
