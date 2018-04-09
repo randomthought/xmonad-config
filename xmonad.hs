@@ -3,7 +3,7 @@
 
 import System.IO
 import System.Exit
-import System.Taffybar.Hooks.PagerHints (pagerHints)
+-- import System.Taffybar.Hooks.PagerHints (pagerHints)
 
 import qualified Data.List as L
 
@@ -49,7 +49,7 @@ import qualified Data.Map        as M
 myTerminal = "termite"
 
 -- The command to lock the screen or show the screensaver.
-myScreensaver = "xscreensaver-command -lock"
+myScreensaver = "dm-tool switch-to-greeter"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
@@ -210,8 +210,8 @@ unfocusColor = base02
 
 -- myFont      = "-*-Zekton-medium-*-*-*-*-160-*-*-*-*-*-*"
 -- myBigFont   = "-*-Zekton-medium-*-*-*-*-240-*-*-*-*-*-*"
-myFont      = "xft:Zekton:size=11:bold:antialias=true"
-myBigFont   = "xft:Zekton:size=11:bold:antialias=true"
+myFont      = "xft:Zekton:size=9:bold:antialias=true"
+myBigFont   = "xft:Zekton:size=9:bold:antialias=true"
 myWideFont  = "xft:Eurostar Black Extended:"
             ++ "style=Regular:pixelsize=180:hinting=true"
 
@@ -507,7 +507,7 @@ main = do
                                ]
                                False
          $ ewmh
-         $ pagerHints
+         -- $ pagerHints -- uncomment to use taffybar
          $ defaults {
          logHook = dynamicLogWithPP xmobarPP {
                   ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"

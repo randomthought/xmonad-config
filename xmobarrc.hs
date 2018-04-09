@@ -1,5 +1,5 @@
 Config {
-       font = "xft:Zekton:size=11:bold:antialias=true"
+       font = "xft:Zekton:size=9:bold:antialias=true"
        , additionalFonts = [ "xft:FontAwesome:size=11" ]
        , allDesktops = True
        , bgColor = "#282c34"

@@ -33,8 +33,7 @@ main :: IO ()
 main = do
   let dev     = Desktop
       res     = HD
-      -- clock   = textClockNew Nothing ("<span fgcolor='" ++ colors "lightgrey" ++ "'>" ++ fontAwesome "\xf017  " ++ "%a %b %_d %I:%M:%S</span>") 1
-      clock   = textClockNew Nothing ("<span fgcolor='" ++ colors "white" ++ "'>" ++ fontAwesome "\xf017  " ++ "%a %b %_d %I:%M:%S</span>") 1
+      clock   = textClockNew Nothing ("<span fgcolor='" ++ colors "white" ++ "'>" ++ fontAwesome "\xf017  " ++ "%a %b %_d %I:%M</span>") 1
       -- pager   = taffyPagerNew defaultPagerConfig
       pager   = taffyPagerNew myPagerConfig
       tray    = systrayNew
