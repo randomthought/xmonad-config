@@ -55,57 +55,57 @@ ln -s ~/.xmonad/bin/xsession ~/.xinitrc
   
 After starting xmonad, use the following keyboard shortcuts to function in your new window manager. I recommend you print these out so that you don't get stranded once you logout and back in. 
 
-| *Key Binding*                                                | *Action*                                                                      |
-|--------------------------------------------------------------+-------------------------------------------------------------------------------|
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Return)}}}            | Start a terminal                                                              |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(0)}}}                  | Lock screen                                                                   |
-| {{{kbd(Win)}}}+{{{kbd(p)}}}                                  | Start dmenu.  Once it comes up, type the name of a program and enter          |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(p)}}}                 | Take screenshot in select mode. Click or click and drag to select             |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Shift)}}}+{{{kbd(p)}}} | Take fullscreen screenshot. Supports multiple monitors                        |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(c)}}}                 | Close focused window                                                          |
-| {{{kbd(Win)}}}+{{{kbd(Space)}}}                              | Change workspace layout                                                       |
-| {{{kbd(Win)}}}+{{{kbd(r)}}}                                  | Rotates a split between vertical and horizontal (BinarySpacePartition layout) |
-| {{{kbd(Win)}}}+{{{kbd(s)}}}                                  | Swaps to sibling nodes (BinarySpacePartition layout)                          |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Space)}}}             | Change back to default workspace layout                                       |
-| {{{kbd(Win)}}}+{{{kbd(n)}}}                                  | Resize viewed windows to the correct size                                     |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Left)}}}               | Tab current focused window with the window to the left                        |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Right)}}}              | Tab current focused window with the window to the right                       |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Up)}}}                 | Tab current focused window with the window above                              |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Down)}}}               | Tab current focused window with the window below                              |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(u)}}}                  | Ungroup the current tabbed windows                                            |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(m)}}}                  | Merge all windows in the current workspace to one tabbed window               |
-| {{{kbd(Win)}}}+{{{kbd(Tab)}}}                                | Focus next tabbed window                                                      |
-| {{{kbd(Win)}}}+{{{kbd(Left)}}}                               | Focus on window to the Left                                                   |
-| {{{kbd(Win)}}}+{{{kbd(Right)}}}                              | Focus on window to the Right                                                  |
-| {{{kbd(Win)}}}+{{{kbd(Up)}}}                                 | Focus on window above                                                         |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Left)}}}              | Swap adjacent window to the left                                              |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Right)}}}             | Swap adjacent window to the right                                             |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Up)}}}                | Swap adjacent window above                                                    |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(Down)}}}              | Swap adjacent window below                                                    |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Left)}}}               | Expand / Shrink window to the left                                            |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Left)}}}               | Expand / Shrink window to the right                                           |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Up)}}}                 | Expand / Shrink window to the up                                              |
-| {{{kbd(Win)}}}+{{{kbd(Ctrl)}}}+{{{kbd(Down)}}}               | Expand / Shrink window to the down                                            |
-| {{{kbd(Win)}}}+{{{kbd(h)}}}                                  | Shrink master window area                                                     |
-| {{{kbd(Win)}}}+{{{kbd(l)}}}                                  | Expand master window area                                                     |
-| {{{kbd(Win)}}}+{{{kbd(m)}}}                                  | Focus master window                                                           |
-| {{{kbd(Win)}}}+{{{kbd(Return)}}}                             | Swap focused window with master window                                        |
-| {{{kbd(Win)}}}+{{{kbd(t)}}}                                  | Push floating window back into tiling                                         |
-| {{{kbd(Win)}}}+{{{kbd(,)}}}                                  | Increment number of windows in master window area                             |
-| {{{kbd(Win)}}}+{{{kbd(.)}}}                                  | Decrement number of windows in master window area                             |
-| {{{kbd(Win)}}}+{{{kbd(q)}}}                                  | Restart xmonad. This reloads xmonad configuration, does not logout            |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(q)}}}                 | Quit xmonad and logout                                                        |
-| {{{kbd(Win)}}}+{{{kbd([1-9])}}}                              | Switch to workspace 1-9, depending on which number was pressed                |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd([1-9])}}}             | Send focused window to workspace 1-9                                          |
-| {{{kbd(Win)}}}+{{{kbd(w)}}}                                  | Focus left-most monitor (Xinerama screen 1)                                   |
-| {{{kbd(Win)}}}+{{{kbd(e)}}}                                  | Focus center-most monitor (Xinerama screen 2)                                 |
-| {{{kbd(Win)}}}+{{{kbd(r)}}}                                  | Focus right-most monitor (Xinerama screen 3)                                  |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(w)}}}                 | Send focused window to workspace on left-most monitor                         |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(e)}}}                 | Send focused window to workspace on center-most monitor                       |
-| {{{kbd(Win)}}}+{{{kbd(Shift)}}}+{{{kbd(r)}}}                 | Send focused window to workspace on right-most monitor                        |
-| {{{kbd(Win)}}}+{{{kbd(Left Mouse Drag)}}}                    | Drag focused window out of tiling                                             |
-| {{{kbd(Win)}}}+{{{kbd(Right Mouse Drag)}}}                   | Resize focused window, bring out of tiling if needed                          |
-| {{{kbd(Win)}}}+{{{kbd(Right Mouse Drag)}}}                   | Resize focused window, bring out of tiling if needed                          |
+| *Key Binding*                                                                                                                        | *Action*                                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------|
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Return@@html:</kbd>@@                              | Start a terminal                                                            |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@0@@html:</kbd>@@                                    | Lock screen                                                                 |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@p@@html:</kbd>@@                                                                      | Start dmenu.  Once it comes up, type the name of a program and enter        |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@p@@html:</kbd>@@                                   | Take screenshot in select mode. Click or click and drag to select           |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@p@@html:</kbd>@@ | Take fullscreen screenshot. Supports multiple monitors                      |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@c@@html:</kbd>@@                                   | Close focused window                                                        |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Space@@html:</kbd>@@                                                                  | Change workspace layout                                                     |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@r@@html:</kbd>@@                                                                      | Rotates a split between vertical and horizontal BinarySpacePartition layout |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@s@@html:</kbd>@@                                                                      | Swaps to sibling nodes BinarySpacePartition layout                          |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Space@@html:</kbd>@@                               | Change back to default workspace layout                                     |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@n@@html:</kbd>@@                                                                      | Resize viewed windows to the correct size                                   |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Left@@html:</kbd>@@                                 | Tab current focused window with the window to the left                      |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Right@@html:</kbd>@@                                | Tab current focused window with the window to the right                     |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Up@@html:</kbd>@@                                   | Tab current focused window with the window above                            |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Down@@html:</kbd>@@                                 | Tab current focused window with the window below                            |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@u@@html:</kbd>@@                                    | Ungroup the current tabbed windows                                          |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@m@@html:</kbd>@@                                    | Merge all windows in the current workspace to one tabbed window             |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Tab@@html:</kbd>@@                                                                    | Focus next tabbed window                                                    |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Left@@html:</kbd>@@                                                                   | Focus on window to the Left                                                 |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Right@@html:</kbd>@@                                                                  | Focus on window to the Right                                                |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Up@@html:</kbd>@@                                                                     | Focus on window above                                                       |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Left@@html:</kbd>@@                                | Swap adjacent window to the left                                            |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Right@@html:</kbd>@@                               | Swap adjacent window to the right                                           |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Up@@html:</kbd>@@                                  | Swap adjacent window above                                                  |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@Down@@html:</kbd>@@                                | Swap adjacent window below                                                  |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Left@@html:</kbd>@@                                 | Expand / Shrink window to the left                                          |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Left@@html:</kbd>@@                                 | Expand / Shrink window to the right                                         |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Up@@html:</kbd>@@                                   | Expand / Shrink window to the up                                            |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Ctrl@@html:</kbd>@@+@@html:<kbd>@@Down@@html:</kbd>@@                                 | Expand / Shrink window to the down                                          |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@h@@html:</kbd>@@                                                                      | Shrink master window area                                                   |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@l@@html:</kbd>@@                                                                      | Expand master window area                                                   |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@m@@html:</kbd>@@                                                                      | Focus master window                                                         |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Return@@html:</kbd>@@                                                                 | Swap focused window with master window                                      |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@t@@html:</kbd>@@                                                                      | Push floating window back into tiling                                       |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@,@@html:</kbd>@@                                                                      | Increment number of windows in master window area                           |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@.@@html:</kbd>@@                                                                      | Decrement number of windows in master window area                           |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@q@@html:</kbd>@@                                                                      | Restart xmonad. This reloads xmonad configuration, does not logout          |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@q@@html:</kbd>@@                                   | Quit xmonad and logout                                                      |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@[1-9]@@html:</kbd>@@                                                                  | Switch to workspace 1-9, depending on which number was pressed              |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@[1-9]@@html:</kbd>@@                               | Send focused window to workspace 1-9                                        |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@w@@html:</kbd>@@                                                                      | Focus left-most monitor Xinerama screen 1                                   |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@e@@html:</kbd>@@                                                                      | Focus center-most monitor Xinerama screen 2                                 |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@r@@html:</kbd>@@                                                                      | Focus right-most monitor Xinerama screen 3                                  |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@w@@html:</kbd>@@                                   | Send focused window to workspace on left-most monitor                       |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@e@@html:</kbd>@@                                   | Send focused window to workspace on center-most monitor                     |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Shift@@html:</kbd>@@+@@html:<kbd>@@r@@html:</kbd>@@                                   | Send focused window to workspace on right-most monitor                      |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Left Mouse Drag@@html:</kbd>@@                                                        | Drag focused window out of tiling                                           |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Right Mouse Drag@@html:</kbd>@@                                                       | Resize focused window, bring out of tiling if needed                        |
+| @@html:<kbd>@@Win@@html:</kbd>@@+@@html:<kbd>@@Right Mouse Drag@@html:</kbd>@@                                                       | Resize focused window, bring out of tiling if needed                        |
 
 * Personalizing or modifying xmonad-config
   
