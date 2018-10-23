@@ -35,6 +35,7 @@ import XMonad.Layout.ZoomRow
 
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Cursor
 
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
@@ -120,26 +121,21 @@ outerGaps    = 10
 myGaps       = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
 addSpace     = renamed [CutWordsLeft 2] . spacing gap
 tab          =  avoidStruts
+               $ renamed [Replace "Tabbed"]
                $ addTopBar
                $ myGaps
-               $ renamed [Replace "Tabbed"]
                $ tabbed shrinkText myTabTheme
 
 layouts      = avoidStruts (
                 (
-                    addTopBar
+                    renamed [CutWordsLeft 1]
+                  $ addTopBar
                   $ windowNavigation
-                  $ renamed [CutWordsLeft 1]
+                  $ renamed [Replace "BSP"]
                   $ addTabs shrinkText myTabTheme
                   $ subLayout [] Simplest
                   $ myGaps
-                  $ addSpace (
-                        BSP.emptyBSP
-                    ||| ThreeColMid 1 (3/100) (1/2)
-                    ||| zoomRow
-                    ||| Mirror (Tall 1 (3/100) (1/2))
-                    ||| Tall 1 (3/100) (1/2)
-                    )
+                  $ addSpace (BSP.emptyBSP)
                 )
                 ||| tab
                )
@@ -490,6 +486,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 myStartupHook = do
   setWMName "LG3D"
   spawn     "bash ~/.xmonad/startup.sh"
+  setDefaultCursor xC_left_ptr
 
 
 ------------------------------------------------------------------------
