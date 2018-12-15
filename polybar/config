@@ -1,0 +1,336 @@
+[colors]
+# background = #d0303030
+background = #282c34
+background-transparent = #00303030
+background-alt = #c0303030
+background-alt-2 = #ff5fafcf
+# foreground = #eeeeee
+foreground = #bbc2cf
+foreground-alt = #c1c2c3
+
+red = #fb4934
+green = #b8bb26
+yellow = #fabd2f
+blue = #83a598
+purple = #d3869b
+aqua = #8ec07c
+orange = #fe8019
+white = #dddddd
+
+blue_arch = #83afe1
+
+grey = #5b51c9
+grey1 = #5bb1c9
+grey2 = #5bf1c9
+
+primary = green
+secondary = blue
+alert = red
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+[settings]
+screenchange-reload = true
+
+[bar/base]
+width = 100%
+height = 40
+offset-x = 0
+offset-y = 0
+monitor = ${env:MONITOR:}
+# background = ${colors.background-alt}
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+overline-size = 0
+underline-size = 0
+
+border-bottom-size = 3
+# border-bottom-color = #ffffff
+border-bottom-color = #AAB0B3
+
+padding-left = 0
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 4
+
+font-0 = Zekton:fontformat=truetype:bold:size=16:antialias=true;5
+font-1 = FontAwesome:fontformat=truetype:size=16:antialias=true;5
+font-2 = Iosevka:fontformat=truetype:bold:size=16:antialias=true;5
+
+radius = 0.0
+fixed-center = false
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+tray-position = right
+tray-padding = 2
+tray-background = ${root.background}
+
+[bar/desktop]
+inherit = bar/base
+
+modules-left = xmonad
+modules-right = wifi temperature memory filesystem date
+
+[bar/laptop]
+inherit = bar/base
+
+modules-left = xmonad
+modules-right = battery backlight date
+
+[module/xmonad]
+type = custom/script
+exec = xmonad-log
+
+tail = true
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-prefix-underline = ${colors.grey}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.grey}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+# mount-1 = /run/media/randomthought/Dump/
+
+label-mounted = %{T2}%{F#999D9E} %{T-} %mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground}
+
+format-prefix = "%{T2} %{T-} "
+format-prefix-foreground = ${colors.blue_arch}
+format-underline = ${colors.grey}
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ADP1
+full-at = 98
+time-format = %H:%M
+
+format-charging = <animation-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %time%
+format-full-prefix = "f "
+format-full-prefix-foreground = ${colors.foreground}
+
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 40
+label-song-ellipsis = true
+
+bar-progress-width = 10
+bar-progress-indicator = 
+bar-progress-fill = _
+bar-progress-empty = _
+
+[module/cpu]
+# type = internal/cpu
+# interval = 2
+# format = <ramp-load>
+# ramp-load-7 = █
+# ramp-load-6 = ▇
+# ramp-load-5 = ▆
+# ramp-load-4 = ▅
+# ramp-load-3 = ▄
+# ramp-load-2 = ▃
+# ramp-load-1 = ▂
+# ramp-load-0 = ▁
+# format-prefix = "%{T2}%{T-} "
+# format-prefix-foreground = ${colors.foreground}
+# format-underline = ${colors.grey}
+# label = %percentage%%
+
+type = internal/cpu
+interval = 0.2
+
+# format-prefix = "%{T2}%{T-} "
+format = <label> <ramp-coreload>
+label = CPU %percentage:3%%
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #55aa55
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #55aa55
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #55aa55
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #55aa55
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #f5a70a
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #f5a70a
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+ramp-coreload-spacing = 0
+
+bar-load-width = 20
+bar-load-foreground-0 = #55aa55
+bar-load-foreground-1 = #55aa55
+bar-load-foreground-2 = #f5a70a
+bar-load-foreground-3 = #ff5555
+bar-load-gradient = false
+bar-load-indicator = │
+bar-load-indicator-font = 2
+bar-load-indicator-foreground = #ff
+bar-load-fill = ━
+bar-load-fill-font = 2
+bar-load-empty = ━
+bar-load-empty-font = 2
+bar-load-empty-foreground = #444444
+
+[module/memory]
+type = internal/memory
+interval = 0.5
+format-prefix = "%{T2}%{F#51afef}%{T-} "
+format-prefix-foreground = ${colors.foreground}
+format-underline = ${colors.grey}
+label = %percentage_used%%
+
+[module/wifi]
+type = internal/network
+interface = wlp5s0
+interval = 0.5
+
+format-connected-underline = ${colors.grey}
+# format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+# label-connected = %local_ip%
+label-connected = %upspeed:10%  %downspeed:10% 
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = " %Y-%m-%d"
+
+time = %H:%M %p
+
+format-prefix = "%{T2}%{F#99ff99}%{T-}"
+format-prefix-foreground = ${colors.foreground}
+format-underline = ${colors.grey}
+
+label = %date% %time%
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume>
+label-volume =  %percentage%%
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.grey2}
+bar-volume-foreground-1 = ${colors.grey2}
+bar-volume-foreground-2 = ${colors.grey2}
+bar-volume-foreground-3 = ${colors.grey2}
+bar-volume-foreground-4 = ${colors.grey2}
+bar-volume-foreground-5 = ${colors.grey1}
+bar-volume-foreground-6 = ${colors.grey}
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 0
+bar-volume-fill = 
+bar-volume-fill-font = 1
+bar-volume-empty = 
+bar-volume-empty-font = 1
+bar-volume-empty-foreground = ${colors.foreground}
+
+[module/backlight]
+type = internal/xbacklight
+enable-scroll = false
+format-underline = ${colors.grey}
+format = <ramp>
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format-prefix = "%{T2}%{F#CDB464}%{T-} "
+format-warn-prefix = "%{T2}%{T-} "
+format-prefix-foreground = ${colors.foreground}
+format-warn-prefix-foreground = ${colors.foreground}
+
+format = <label>
+format-warn = <label-warn>
+
+label = %temperature-c:3%
+label-warn = %temperature-c:3%
+# label-warn-foreground = ${colors.warning}
+
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+
+; vim:ft=dosini

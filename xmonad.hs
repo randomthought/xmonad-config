@@ -4,8 +4,12 @@
 import System.IO
 import System.Exit
 -- import System.Taffybar.Hooks.PagerHints (pagerHints)
+--
+import qualified Codec.Binary.UTF8.String as UTF8
 
 import qualified Data.List as L
+import qualified DBus as D
+import qualified DBus.Client as D
 
 import XMonad
 import XMonad.Actions.Navigation2D
@@ -41,13 +45,12 @@ import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-
 ----------------------------mupdf--------------------------------------------
 -- Terminimport XMonad.Hooks.EwmhDesktopsal
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "termite"
+myTerminal = "alacritty"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "dm-tool switch-to-greeter"
@@ -493,8 +496,9 @@ myStartupHook = do
 -- Run xmonad with all the defaults we set up.
 --
 main = do
-  xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc.hs"
-  -- xmproc <- spawnPipe "taffybar"
+  dbus <- D.connectSession
+  D.requestName dbus (D.busName_ "org.xmonad.Log")
+    [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
   xmonad $ docks
          $ withNavigation2DConfig myNav2DConf
          $ additionalNav2DKeys (xK_Up, xK_Left, xK_Down, xK_Right)
@@ -504,15 +508,42 @@ main = do
                                ]
                                False
          $ ewmh
-         -- $ pagerHints -- uncomment to use taffybar
          $ defaults {
-         logHook = dynamicLogWithPP xmobarPP {
-                  ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "" . wrap "[" "]"
-                , ppTitle = xmobarColor xmobarTitleColor "" . shorten 50
-                , ppSep = "   "
-                , ppOutput = hPutStrLn xmproc
-         } >> updatePointer (0.75, 0.75) (0.75, 0.75)
+         logHook = dynamicLogWithPP (myLogHook dbus) >> updatePointer (0.75, 0.75) (0.75, 0.75)
       }
+
+
+-----------------------------------------------------------------------------}}}
+-- LOGHOOK                                                                   {{{
+--------------------------------------------------------------------------------
+myLogHook :: D.Client -> PP
+myLogHook dbus = def
+    { ppOutput = dbusOutput dbus
+    , ppCurrent =  wrap "[" "]" . wrap ("%{F" ++ yellow ++ "} ") " %{F-}"
+    , ppVisible = wrap ("%{F" ++ yellow ++ "} ") " %{F-}"
+    , ppUrgent = wrap ("%{F" ++ red ++ "} ") " %{F-}"
+    , ppHidden = wrap " " " "
+    , ppWsSep = ""
+    , ppSep = "  |  "
+    , ppTitle = wrap ("%{F" ++ blue ++ "} ") " %{F-}" . myAddSpaces 25
+    }
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str = do
+    let signal = (D.signal objectPath interfaceName memberName) {
+            D.signalBody = [D.toVariant $ UTF8.decodeString str]
+        }
+    D.emit dbus signal
+  where
+    objectPath = D.objectPath_ "/org/xmonad/Log"
+    interfaceName = D.interfaceName_ "org.xmonad.Log"
+    memberName = D.memberName_ "Update"
+
+myAddSpaces :: Int -> String -> String
+myAddSpaces len str = sstr ++ replicate (len - length sstr) ' '
+  where
+    sstr = shorten len str
 
 ------------------------------------------------------------------------
 -- Combine it all together

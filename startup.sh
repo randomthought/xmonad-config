@@ -1,15 +1,16 @@
 #!/bin/sh
 
-# System tray
-if [ -z "$(pgrep trayer)" ] ; then
-    trayer --edge top \
-           --align right \
-           --widthtype percent \
-           --height 24 \
-           --alpha 0 \
-           --transparent true \
-           --width 5 \
-           --tint 0x282c34 &
+
+# polybar
+if [ -z "$(pgrep polybar)" ] ;
+then
+    if type "xrandr"; then
+      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        MONITOR=$m polybar -r desktop &
+      done
+    else
+      polybar -r desktop &
+    fi
 fi
 
 # Power manager
@@ -17,14 +18,10 @@ if [ -z "$(pgrep xfce4-power-manager)" ] ; then
     xfce4-power-manager &
 fi
 
-# Taffybar
-# if [ -z "$(pgrep taffybar)" ] ; then
-#     taffybar &
-# fi
 
-# Redshift
-if [ -z "$(pgrep redshift)" ] ; then
-    redshift &
+Redshift
+if [ -z "$(pgrep redshiftgui)" ] ; then
+    redshiftgui &
 fi
 
 # Autolock
@@ -37,11 +34,6 @@ if [ -z "$(pgrep nitrogen)" ] ; then
     nitrogen --restore &
 fi
 
-# Screensaver
-if [ -z "$(pgrep xscreensaver)" ] ; then
-    xscreensaver -no-splash &
-fi
-
 # compton
 if [ -z "$(pgrep compton)" ] ; then
     compton -b &
@@ -52,9 +44,10 @@ if [ -z "$(pgrep nm-applet)" ] ; then
     nm-applet &
 fi
 
-# Google Drive
+Google Drive
 if [ -z "$(pgrep insync)" ] ; then
     insync start &
 fi
+
 # xbindkeys
 xbindkeys

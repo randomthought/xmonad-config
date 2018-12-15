@@ -1,0 +1,7 @@
+rofi.fullscreen:true
+rofi.theme: rofi
+rofi.dpi: 180
+# rofi.font: Nimbus Sans Bold 20
+# rofi.conf: Iosevka Bold 20
+rofi.show-icons: true
+rofi.modi: drun,window
