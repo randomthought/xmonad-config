@@ -1,0 +1,43 @@
+name:                xmonad-config
+version:             0.1.0.0
+github:              "githubuser/xmonad-config"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "example@example.com"
+copyright:           "2018 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/xmonad-config#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- X11 >= 1.8
+- X11-xft >= 0.3
+- containers
+- dbus
+- utf8-string
+- xmonad >= 0.13
+- xmonad-contrib >= 0.13
+- xmonad-extras >= 0.13
+
+executables:
+  xmonad-config-exe:
+    main:                xmonad.hs
+    source-dirs:         src
+    ghc-options:
+    - -threaded
+    - -Wall
+    # - -Werror
+    # - -fno-warn-missing-signatures
+    # dependencies:
+    # - xmonad
