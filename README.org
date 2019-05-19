@@ -5,52 +5,79 @@
 xmonad-config is my [[http://xmonad.org/][xmonad]] configuration was inspired by [[https://github.com/vicfryzel/xmonad-config][Vic Fryzel]], [[https://gist.github.com/gilbertw1/c33e79eb76fcb5a47411da881c621639][gilbertw1]] and [[https://github.com/altercation/dotfiles-tilingwm][Ethan Schoonover]] 
 * Introduction
   
-If you are unfamiliar with xmonad, it is a tiling window manager that is notoriously minimal, stable, beautiful, and featureful.  If you find yourself spending a lot of time organizing or managing windows, you may consider trying xmonad.
+If you are unfamiliar with xmonad, it is a tiling window manager that is
+notoriously minimal, stable, beautiful, and featureful.  If you find
+yourself spending a lot of time organizing or managing windows, you may
+consider trying xmonad.
 
-However, xmonad can be somewhat difficult to configure if you're new to Haskell or even to xmonad itself.
+However, xmonad can be somewhat difficult to configure if you're new to
+Haskell or even to xmonad itself.
 
-This project contains a completely working and very usable xmonad configuration "out of the box".  If you are just starting out with xmonad, this will give you a configuration that I personally use every day. Thought it has been put into the colors, key bindings, layouts, and supplementary scripts to make life easier.
+This project contains a completely working and very usable xmonad configuration
+"out of the box".  If you are just starting out with xmonad, this will
+give you a configuration that I personally use every day. Thought it has
+been put into the colors, key bindings, layouts, and supplementary scripts
+to make life easier.
 
-This project is also recommended for advanced xmonad users, who may just not want to reinvent the wheel.  All source provided with this project is well documented and simple to customize.
+This project is also recommended for advanced xmonad users, who may just
+not want to reinvent the wheel.  All source provided with this project is
+well documented and simple to customize.
 
 [[file:screenshots/screenshot1.png]]
 [[file:screenshots/screenshot2.png]]
 * Requirements
-  
-- xmonad
-- xmonad-contrib
-- [[http://projects.haskell.org/xmobar/][xmobar]]
-- [[http://stalonetray.sourceforge.net/][stalonetray]]
-- [[https://davedavenport.github.io/rofi/][rofi]]
+- polybar
 ** Installing requirements on [[http://www.archlinux.org/][Arch Linux]]
-   #+BEGIN_SRC 
-sudo pacman -S xmonad xmonad-contrib xmobar stalonetray \
-xcompmgr rofi
-   #+END_SRC
-** Installing requirements on [[http://www.ubuntu.com/][Ubuntu Linux]]
-   #+BEGIN_SRC 
-sudo aptitude install xmonad libghc-xmonad-contrib-dev xmobar stalonetray \
-rofi
+   #+BEGIN_SRC sh
+sudo yay -S polybar rofi
    #+END_SRC
 * Installation
-  
-Installing xmonad-config is a matter of backing up any xmonad configuration you may already have, cloning the git repository, and updating your PATH.
-#+BEGIN_SRC 
-cd
-mv .xmonad .xmonad.orig
-git clone https://github.com/randomthought/xmonad-config.git .xmonad
+** Install Stack
+#+BEGIN_SRC sh
+curl -sSL https://get.haskellstack.org/ | sh
 #+END_SRC
-Once xmonad-config is installed, you also need to ensure you can actually start xmonad. The mechanism to do this varies based on each environment, but here are some instructions for some common login managers.
-** Starting xmonad from lightdm, xdm, kdm, or gdm
-   #+BEGIN_SRC 
-ln -s ~/.xmonad/bin/xsession ~/.xsession
-# Logout, login from lightdm/xdm/kdm/gdm
-   #+END_SRC
-** Starting xmonad from slim
-   #+BEGIN_SRC 
-ln -s ~/.xmonad/bin/xsession ~/.xinitrc
-# Logout, login from slim
-   #+END_SRC
+** Build Xmonad
+Installing xmonad-config is a matter of backing up any xmonad configuration
+you may already have, cloning the git repository, and updating your PATH.
+#+BEGIN_SRC sh
+git clone https://github.com/randomthought/xmonad-config.git
+cd xmonad-config
+stack install
+#+END_SRC
+Stack would create an executable binery and move it to the ~$HOME/local/.bin/~
+folder. To make this avalible for all users. Create a symlink using the
+following command
+#+BEGIN_SRC sh
+ln -s ~/.local/bin/xmonad-config-exe /usr/bin
+#+END_SRC
+** Add Desktop Entry
+Once xmonad-config is installed, you also need to ensure you can actually
+start xmonad. The mechanism to do this varies based on each environment,
+but here are some instructions for some common login managers.
+
+#+BEGIN_SRC text
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Xmonad
+Comment=Lightweight X11 tiled window manager written in Haskell
+Exec=xmonad-config-exe
+Icon=xmonad
+Terminal=false
+StartupNotify=false
+Categories=Application;
+#+END_SRC
+** Additional Configs
+If you interested in having the same bar setup and rofi look as I do, my configs
+are added to the repo. Copy them to you configs folder as shown below.
+*** Polybar
+#+BEGIN_SRC sh
+cp -r polybar $HOME/.config/
+#+END_SRC
+*** rofi
+#+BEGIN_SRC sh
+cp -r rofi $HOME/.config/
+#+END_SRC
 * Keyboard shortcuts
   
 After starting xmonad, use the following keyboard shortcuts to function in your new window manager. I recommend you print these out so that you don't get stranded once you logout and back in. 
@@ -111,10 +138,10 @@ After starting xmonad, use the following keyboard shortcuts to function in your 
   
 Once cloned, xmonad-config is laid out as follows.
 
-All xmonad configuration is in ~/.xmonad/xmonad.hs.  This includes things like key bindings, colors, layouts, etc.  You may need to have some basic understanding of [[https://wiki.haskell.org/Haskell][Haskell]] in order to modify this file, but most people have no problems.
+All xmonad configuration is in ~~/.xmonad-config/src/xmonad.hs~.  This includes
+things like key bindings, colors, layouts, etc.  You may need to have some basic
+understanding of [[https://wiki.haskell.org/Haskell][Haskell]] in order to modify this file, but most people
+have no problems.
 
-Most of the xmobar configuration is in ~/.xmonad/xmobar.hs.
-
-All scripts are in ~/.xmonad/bin/.  Scripts are provided to do things like take screenshots, start the system tray, start dmenu, or fix your multi-head layout after a fullscreen application may have turned off one of the screens. 
-
-Colors set in the xmobar config and dmenu script are meant to coincide with the [[http://toddwerth.com/2008/04/30/the-last-vim-color-scheme-youll-ever-need/][IR_Black terminal and vim themes]].
+Colors set in the xmobar config and dmenu script are meant to coincide with
+the [[http://toddwerth.com/2008/04/30/the-last-vim-color-scheme-youll-ever-need/][IR_Black terminal and vim themes]].
